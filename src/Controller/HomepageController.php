@@ -23,13 +23,20 @@ class HomepageController extends AbstractController
 	}
 
 	/**
-	 * @Route("/")
+	 * @Route(
+	 *     "/",
+     *     name="homepage"
+	 * )
 	 */
 	public function homepage()
 	{
 		$recipes = $this->recipeRepository->getRecipes();
-		var_dump($recipes);
-		return $this->render('homepage.html.twig');
+
+		$newRecipeUrl = $this->generateUrl('new_recipe');
+		return $this->render('homepage.html.twig', [
+			'recipes' => $recipes,
+			'newRecipe' => $newRecipeUrl,
+		]);
 	}
 
 }
