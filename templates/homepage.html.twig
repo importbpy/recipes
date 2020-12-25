@@ -6,32 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/main.css" >
 
     <title>Recepty</title>
 </head>
 <body>
+
+<main class="site-main">
     <div class="container">
-    <a href="{{ newRecipe }}" class="btn btn-primary">Přidat recept</a>
-    <div class="row">
-    {% for recipe in recipes %}
+        <section class="post-feed">
+            {% for recipe in recipes %}
+                <a class="post-card" href="{{ recipe.slug }}">
+                    <header class="post-card-header">
+                        <div class="post-card-image" style="background-image:url({{ recipe.imageUrl }})">
 
-        <div class="col-sm-4">
-    <div class="card" style="width: 100%">
-            <img class="card-img-top" alt="{{ recipe.title }}" src="/images/{{ recipe.slug }}.jpg">
-        <div class="card-body">
-            <h7 class="card-title">{{ recipe.title }}</h7>
-        </div>
+                        </div>
+                        <h2 class="post-card-title">{{ recipe.title }}</h2>
+                    </header>
+                </a>
+            {% endfor %}
+        </section>
     </div>
-        </div>
-    {% endfor %}
-        </div>
-    </div>
+</main>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

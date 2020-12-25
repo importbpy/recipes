@@ -4,17 +4,14 @@ declare(strict_types = 1);
 
 namespace App\Controller;
 
-use App\Repository\RecipeRepository;
+use App\Model\Recipe\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends AbstractController
 {
 
-	/**
-	 * @var \App\Entity\RecipeRepository
-	 */
-	private $recipeRepository;
+	private RecipeRepository $recipeRepository;
 
 	public function __construct(
 		RecipeRepository $recipeRepository
@@ -32,10 +29,8 @@ class HomepageController extends AbstractController
 	{
 		$recipes = $this->recipeRepository->getRecipes();
 
-		$newRecipeUrl = $this->generateUrl('new_recipe');
 		return $this->render('homepage.html.twig', [
 			'recipes' => $recipes,
-			'newRecipe' => $newRecipeUrl,
 		]);
 	}
 

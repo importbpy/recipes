@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Model\Recipe;
 
-use App\Model\Helper\Helper;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RecipeRepository")
+ * @ORM\Entity(repositoryClass="App\Model\Recipe\RecipeRepository")
  */
 class Recipe
 {
@@ -24,6 +23,11 @@ class Recipe
     private string $title;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private string $imageUrl;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private string $slug;
@@ -38,15 +42,18 @@ class Recipe
      */
     private ?string $link;
 
+
     public function __construct(
         string $title,
+        string $imageUrl,
         string $description,
         ?string $link
     ) {
         $this->title = $title;
+        $this->imageUrl = $imageUrl;
         $this->description = $description;
         $this->link = $link;
-        $this->slug = Helper::createSlug($title);
+        $this->slug = 'slug';
     }
 
     public function getId(): ?int
@@ -64,6 +71,11 @@ class Recipe
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getImageUrl(): string
+    {
+        return $this->imageUrl;
     }
 
     public function getDescription(): ?string
