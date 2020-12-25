@@ -5,7 +5,7 @@ namespace App\Model\Recipe;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Model\Recipe\RecipeRepository")
+ * @ORM\Entity(repositoryClass="DefaultRecipeRepository")
  */
 class Recipe
 {

@@ -90,6 +90,9 @@
     "egulias/email-validator": {
         "version": "2.1.17"
     },
+    "erusev/parsedown": {
+        "version": "1.7.4"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

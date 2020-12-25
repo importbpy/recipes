@@ -4,17 +4,17 @@ declare(strict_types = 1);
 
 namespace App\Controller;
 
-use App\Model\Recipe\RecipeRepository;
+use App\Model\Recipe\DefaultRecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends AbstractController
 {
 
-	private RecipeRepository $recipeRepository;
+	private DefaultRecipeRepository $recipeRepository;
 
 	public function __construct(
-		RecipeRepository $recipeRepository
+        DefaultRecipeRepository $recipeRepository
 	) {
 		$this->recipeRepository = $recipeRepository;
 	}

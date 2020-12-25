@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="cs">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/styles/main.css" >
+
+    <title>Recepty</title>
+</head>
+<body>
+    <header class="site-head">
+        <div class="container">
+            <div class="site-mast">
+                <div class="site-mast-left">
+                    <a href="/">
+                        <h3 style="color: white">Recepty</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="site-main">
+        <div class="container">
+            <article class="content">
+                <figure class="post-feature-image">
+                    <img src="{{ recipe.imageUrl }}" alt="{{ recipe.title }}">
+                </figure>
+                <section class="post-full-content">
+                    <h1 class="content-title">{{ recipe.title }}</h1>
+                    <section class="content-body">{{ recipe.description|markup|raw }}</section>
+                </section>
+            </article>
+        </div>
+    </main>
+</body>
+
