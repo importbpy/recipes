@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\Helper\Helper;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,22 +16,38 @@ class Recipe
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private string $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $description;
+    private string $slug;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private string $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $link;
+    private ?string $link;
+
+    public function __construct(
+        string $title,
+        string $description,
+        ?string $link
+    ) {
+        $this->title = $title;
+        $this->description = $description;
+        $this->link = $link;
+        $this->slug = Helper::createSlug($title);
+    }
 
     public function getId(): ?int
     {
@@ -54,7 +71,7 @@ class Recipe
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -71,6 +88,11 @@ class Recipe
         $this->link = $link;
 
         return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 
 }
