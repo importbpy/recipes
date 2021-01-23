@@ -16,7 +16,7 @@
         <div class="container">
             <article class="content">
                 <figure class="post-feature-image">
-                    <img src="{{ recipe.imageUrl }}" alt="{{ recipe.title }}">
+                    <img src="{{ 'http://' ~ app.request.host ~ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}">
                 </figure>
                 <section class="post-full-content">
                     <h1 class="content-title">{{ recipe.title }}</h1>
