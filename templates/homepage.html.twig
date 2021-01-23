@@ -8,7 +8,7 @@
             {% for recipe in recipes %}
                 <a class="post-card" href="{{ recipe.slug }}">
                     <header class="post-card-header">
-                    <div class="post-card-image" style="background-image:url({{ 'http://' ~ app.request.host ~ '/images/' ~ recipe.slug ~ '.jpg' }})">
+                    <div class="post-card-image" style="background-image:url({{ 'http://' ~ app.request.host ~ '/images/small/' ~ recipe.slug ~ '.jpg' }})">
 
                         </div>
                         <h2 class="post-card-title">{{ recipe.title }}</h2>
