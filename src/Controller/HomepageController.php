@@ -9,6 +9,7 @@ use App\Model\Tag\DefaultTaggingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 class HomepageController extends AbstractController
 {
@@ -38,7 +39,12 @@ class HomepageController extends AbstractController
             $recipes = $this->recipeRepository->getRecipes();
         } else {
 	        $tagArray = explode(',', $tags);
-            $recipes = array_map(fn($tagging) => $tagging->getRecipe(), $this->taggingRepository->findByTagNames($tagArray));
+	        try {
+                $recipes = array_map(fn($tagging) => $tagging->getRecipe(), $this->taggingRepository->findByTagNames($tagArray));
+            } catch (Throwable $exception) {
+	            var_dump($exception->getMessage());
+	            $recipes = [];
+            }
         }
 
 		return $this->render('homepage.html.twig', [
