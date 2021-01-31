@@ -23,11 +23,6 @@ class Recipe
     private string $title;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private string $imageUrl;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private string $slug;
@@ -45,12 +40,10 @@ class Recipe
 
     public function __construct(
         string $title,
-        string $imageUrl,
         string $description,
         ?string $link
     ) {
         $this->title = $title;
-        $this->imageUrl = $imageUrl;
         $this->description = $description;
         $this->link = $link;
         $this->slug = 'slug';
@@ -71,11 +64,6 @@ class Recipe
         $this->title = $title;
 
         return $this;
-    }
-
-    public function getImageUrl(): string
-    {
-        return $this->imageUrl;
     }
 
     public function getDescription(): ?string
