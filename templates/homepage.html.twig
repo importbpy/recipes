@@ -10,6 +10,9 @@
                     <a class="" href="{{ url('homepage') ~ '?tags=' ~ tag.name }}">{{ tag.name }}</a>
                 </button>
             {% endfor %}
+            <button>
+                <a href="{{ url('homepage') }}">odebrat tagy</a>
+            </button>
         </section>
         <section class="post-feed">
             {% for recipe in recipes %}
