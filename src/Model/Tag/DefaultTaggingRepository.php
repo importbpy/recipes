@@ -22,8 +22,9 @@ final class DefaultTaggingRepository extends ServiceEntityRepository
             ->join('tagging.recipe', 'recipe')
             ->join('tagging.tag', 'tag')
             ->where('tag.name IN (:tagNames)')
-            ->groupBy('tagging.recipe')
+            ->groupBy('recipe')
             ->setParameter('tagNames', $tagNames)
+            ->orderBy('recipe.slug')
             ->getQuery()
             ->execute();
     }

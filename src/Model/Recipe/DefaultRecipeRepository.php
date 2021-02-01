@@ -23,7 +23,7 @@ class DefaultRecipeRepository extends ServiceEntityRepository implements RecipeR
      */
     public function getRecipes(): array
     {
-        return $this->findAll();
+        return $this->findBy([], ['slug' => 'ASC']);
     }
 
     // /**
