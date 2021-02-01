@@ -23,7 +23,7 @@ final class DetailController extends AbstractController
 
     /**
      * @Route(
-     *     "/{slug}",
+     *     "/recept/{slug}",
      *     name="detail"
      * )
      */

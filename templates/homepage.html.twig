@@ -16,7 +16,7 @@
         </section>
         <section class="post-feed">
             {% for recipe in recipes %}
-                <a class="post-card" href="{{ recipe.slug }}">
+                <a class="post-card" href="{{ '/recept/' ~ recipe.slug }}">
                     <header class="post-card-header">
                     <div class="post-card-image" style="background-image:url({{ 'http://' ~ app.request.host ~ '/images/small/' ~ recipe.slug ~ '.jpg' }})">
 
