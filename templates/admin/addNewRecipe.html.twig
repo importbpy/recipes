@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <header class="site-head">
+        <div class="container">
+            <div class="site-mast">
+                <div class="site-mast-left">
+                    <a href="/admin">
+                        <h3 style="color: white">Admin</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="site-main">
+        <div class="container">
+            <article class="content">
+                <section class="post-full-content">
+                    {{ form(form) }}
+                </section>
+            </article>
+        </div>
+    </main>
+{% endblock %}

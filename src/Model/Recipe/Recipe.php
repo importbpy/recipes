@@ -3,6 +3,7 @@
 namespace App\Model\Recipe;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * @ORM\Entity(repositoryClass="DefaultRecipeRepository")
@@ -37,7 +38,6 @@ class Recipe
      */
     private ?string $link;
 
-
     public function __construct(
         string $title,
         string $description,
@@ -45,8 +45,8 @@ class Recipe
     ) {
         $this->title = $title;
         $this->description = $description;
+        $this->slug = (new AsciiSlugger())->slug($title)->lower();
         $this->link = $link;
-        $this->slug = 'slug';
     }
 
     public function getId(): ?int
