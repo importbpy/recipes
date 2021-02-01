@@ -4,6 +4,13 @@
 
 <main class="site-main">
     <div class="container">
+        <section class="site-head">
+            {% for tag in tags %}
+                <button>
+                    <a class="" href="{{ url('homepage') ~ '?tags=' ~ tag.name }}">{{ tag.name }}</a>
+                </button>
+            {% endfor %}
+        </section>
         <section class="post-feed">
             {% for recipe in recipes %}
                 <a class="post-card" href="{{ recipe.slug }}">
