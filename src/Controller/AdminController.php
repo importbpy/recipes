@@ -81,6 +81,8 @@ final class AdminController extends AbstractController
             imagejpeg($imgResized, __DIR__ . '/../../public/images/small/' . $recipe->getSlug() . '.jpg');
             $imgResized = imagescale($image , 1200);
             imagejpeg($imgResized, __DIR__ . '/../../public/images/' . $recipe->getSlug() . '.jpg');
+
+            return $this->redirectToRoute('admin_homepage');
         }
 
         return $this->render(

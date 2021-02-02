@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-<main class="site-main">
-    <div class="container">
-        <section class="site-head">
+<header class="site-head">
+    <section class="site-head">
+        <div class="container">
             {% for tag in tags %}
                 <button>
                     <a class="" href="{{ url('homepage') ~ '?tags=' ~ tag.name }}">{{ tag.name }}</a>
@@ -13,7 +12,11 @@
             <button>
                 <a href="{{ url('homepage') }}">odebrat tagy</a>
             </button>
-        </section>
+        </div>
+    </section>
+</header>
+<main class="site-main">
+    <div class="container">
         <section class="post-feed">
             {% for recipe in recipes %}
                 <a class="post-card" href="{{ '/recept/' ~ recipe.slug }}">
