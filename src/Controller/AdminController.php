@@ -73,14 +73,14 @@ final class AdminController extends AbstractController
             $this->entityManager->flush();
             $image = $newRecipe->getImage();
             if ($image !== null) {
-                $image->move(__DIR__ . '/../../public/images/original', $recipe->getTitle() . '.jpg');
+                $image->move(__DIR__ . '/../../public/images/original', $recipe->getSlug() . '.jpg');
             }
 
-            $image = imagecreatefromjpeg(__DIR__ . '/../../public/images/original/' . $recipe->getTitle() . '.jpg');
+            $image = imagecreatefromjpeg(__DIR__ . '/../../public/images/original/' . $recipe->getSlug() . '.jpg');
             $imgResized = imagescale($image , 400);
-            imagejpeg($imgResized, __DIR__ . '/../../public/images/small/' . $recipe->getTitle() . '.jpg');
+            imagejpeg($imgResized, __DIR__ . '/../../public/images/small/' . $recipe->getSlug() . '.jpg');
             $imgResized = imagescale($image , 1200);
-            imagejpeg($imgResized, __DIR__ . '/../../public/images/' . $recipe->getTitle() . '.jpg');
+            imagejpeg($imgResized, __DIR__ . '/../../public/images/' . $recipe->getSlug() . '.jpg');
         }
 
         return $this->render(
