@@ -10,7 +10,6 @@ use App\Model\Tag\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Throwable;
 
 class HomepageController extends AbstractController
 {
@@ -44,12 +43,7 @@ class HomepageController extends AbstractController
             $recipes = $this->recipeRepository->getRecipes();
         } else {
 	        $tagArray = explode(',', $tags);
-	        try {
-                $recipes = array_map(fn($tagging) => $tagging->getRecipe(), $this->taggingRepository->findByTagNames($tagArray));
-            } catch (Throwable $exception) {
-	            var_dump($exception->getMessage());
-	            $recipes = [];
-            }
+            $recipes = array_map(fn($tagging) => $tagging->getRecipe(), $this->taggingRepository->findByTagNames($tagArray));
         }
 
 	    $tags = $this->tagRepository->findAll();
