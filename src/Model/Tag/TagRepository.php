@@ -7,4 +7,6 @@ namespace App\Model\Tag;
 interface TagRepository
 {
 
+    public function getById(string $id): ?Tag;
+
 }

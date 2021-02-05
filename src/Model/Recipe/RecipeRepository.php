@@ -14,4 +14,6 @@ interface RecipeRepository
 
     public function findOneBySlug(string $slug): ?Recipe;
 
+    public function getById(string $id): ?Recipe;
+
 }

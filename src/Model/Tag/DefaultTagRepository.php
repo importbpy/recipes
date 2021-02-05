@@ -15,4 +15,8 @@ final class DefaultTagRepository extends ServiceEntityRepository implements TagR
         parent::__construct($registry, Tag::class);
     }
 
+    public function getById(string $id): ?Tag {
+        return $this->find($id);
+    }
+
 }

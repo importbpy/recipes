@@ -4,10 +4,11 @@ declare(strict_types = 1);
 
 namespace App\Model\Tag;
 
+use App\Model\Recipe\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-final class DefaultTaggingRepository extends ServiceEntityRepository
+final class DefaultTaggingRepository extends ServiceEntityRepository implements TaggingRepository
 {
 
     public function __construct(ManagerRegistry $registry)
@@ -27,6 +28,28 @@ final class DefaultTaggingRepository extends ServiceEntityRepository
             ->orderBy('recipe.slug')
             ->getQuery()
             ->execute();
+    }
+
+    public function findByRecipe(Recipe $recipe): array
+    {
+        return $this->findBy(['recipe' => $recipe]);
+    }
+
+    public function delete(string $recipeId, string $tagId): void
+    {
+        $tagging = $this->createQueryBuilder('tagging')
+            ->select('tagging')
+            ->join('tagging.recipe', 'recipe')
+            ->join('tagging.tag', 'tag')
+            ->where('recipe.id = :recipeId')
+            ->andWhere('tag.id = :tagId')
+            ->getQuery()
+            ->execute(['recipeId' => $recipeId, 'tagId' => $tagId, ]);
+        if ($tagging !== null && isset($tagging[0])) {
+            $entityManager = $this->getEntityManager();
+            $entityManager->remove($tagging[0]);
+            $entityManager->flush();
+        }
     }
 
 }

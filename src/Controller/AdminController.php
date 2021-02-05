@@ -6,6 +6,10 @@ namespace App\Controller;
 
 use App\Model\Recipe\NewRecipe;
 use App\Model\Recipe\Recipe;
+use App\Model\Recipe\RecipeRepository;
+use App\Model\Tag\Tagging;
+use App\Model\Tag\TaggingRepository;
+use App\Model\Tag\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,11 +25,23 @@ final class AdminController extends AbstractController
 
     private EntityManagerInterface $entityManager;
 
+    private TagRepository $tagRepository;
+
+    private TaggingRepository $taggingRepository;
+
+    private RecipeRepository $recipeRepository;
+
     public function __construct(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        TagRepository $tagRepository,
+        TaggingRepository $taggingRepository,
+        RecipeRepository $recipeRepository
     )
     {
         $this->entityManager = $entityManager;
+        $this->tagRepository = $tagRepository;
+        $this->recipeRepository = $recipeRepository;
+        $this->taggingRepository = $taggingRepository;
     }
 
     /**
@@ -91,6 +107,76 @@ final class AdminController extends AbstractController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route(
+     *     "/admin/tag-recipe/{recipeId}/{tagId}",
+     *     name="tag_recipe",
+     *     requirements={"recipeId"="\d+", "tagId"="\d+"},
+     *     methods={"GET"}
+     * )
+     */
+    public function tagRecipe(string $recipeId, string $tagId): Response
+    {
+        $recipe = $this->recipeRepository->getById($recipeId);
+        if ($recipe === null) {
+            return new Response('Could not find the recipe', Response::HTTP_NOT_FOUND);
+        }
+        $tag = $this->tagRepository->getById($tagId);
+        if ($tag === null) {
+            return new Response('Could not find the tag', Response::HTTP_NOT_FOUND);
+        }
+
+        $tagging = new Tagging($recipe, $tag);
+        $this->entityManager->persist($tagging);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('edit_recipe', ['slug' => $recipe->getSlug()]);
+    }
+
+    /**
+     * @Route(
+     *     "/admin/remove-tag/{recipeId}/{tagId}",
+     *     name="remove_tag",
+     *     requirements={"recipeId"="\d+", "tagId"="\d+"},
+     *     methods={"GET"}
+     * )
+     */
+    public function removeTag(string $recipeId, string $tagId): Response
+    {
+        $this->taggingRepository->delete($recipeId, $tagId);
+        $recipe = $this->recipeRepository->getById($recipeId);
+        if ($recipe === null) {
+            return new Response('Recipe not found', Response::HTTP_NOT_FOUND);
+        }
+        return $this->redirectToRoute('edit_recipe', ['slug' => $recipe->getSlug()]);
+    }
+
+    /**
+     * @Route(
+     *     "/admin/edit/recipe/{slug}",
+     *     name="edit_recipe",
+     *     requirements={"slug"="[a-z\-]+"}
+     * )
+     */
+    public function editRecipe(string $slug): Response
+    {
+        $recipe = $this->recipeRepository->findOneBySlug($slug);
+        if ($recipe === null) {
+            return new Response('Recipe not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $taggings = $this->taggingRepository->findByRecipe($recipe);
+
+        $tags = $this->tagRepository->findAll();
+
+
+        return $this->render('/admin/editRecipe.html.twig', [
+            'recipe' => $recipe,
+            'currentTags' => array_map(fn ($tagging) => $tagging->getTag(), $taggings),
+            'availableTags' => $tags,
+        ]);
     }
 
 }

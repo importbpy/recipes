@@ -7,9 +7,6 @@
                 <div class="site-mast-left">
                     <a href="/">
                         <h3 style="color: white">Recepty</h3>
-                        <h3 style="color: white">
-                            <a href="{{ url('edit_recipe', {slug: recipe.slug}) }}">Editovat recept</a>
-                        </h3>
                     </a>
                 </div>
             </div>
@@ -23,10 +20,20 @@
                 </figure>
                 <section class="post-full-content">
                     <h1 class="content-title">{{ recipe.title }}</h1>
-                    <section class="content-body">{{ recipe.description|markup|raw }}</section>
+                    <h4 class="kg-bookmark-title">Přidané tagy</h4>
+                    {% for tag in currentTags %}
+                        <button>
+                            <a class="" href="{{ url('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
+                        </button>
+                    {% endfor %}
+                    <h4 class="kg-bookmark-title">Přidat další tag</h4>
+                    {% for tag in availableTags %}
+                        <button>
+                            <a class="" href="{{ url('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
+                        </button>
+                    {% endfor %}
                 </section>
             </article>
         </div>
     </main>
 {% endblock %}
-
