@@ -25,10 +25,12 @@
         gtag('config', 'UA-170882462-1');
     </script>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/styles/main.css" >
+    {% block styles %}
+        <link rel="stylesheet" href="/styles/main.css" >
+    {% endblock %}
 
-    <title>Recepty</title>
+    <title>{% block title %}Recepty{% endblock %}</title>
+
 </head>
 <body>
 

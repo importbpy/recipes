@@ -1,0 +1,45 @@
+body {
+    background-color: gainsboro;
+    font-family: Verdana, sans-serif;
+    color: dimgray;
+}
+form {
+    max-width: 400pt;
+    margin: auto;
+    padding: 30pt 10pt 10pt;
+}
+
+label {
+    font-size: medium;
+}
+
+input {
+    background-color: ghostwhite;
+    border: thin solid lightskyblue;
+    border-left: 8pt solid lightskyblue;
+    font-size: larger;
+    width: 95%;
+    color: dimgray;
+    padding: 6pt;
+    margin-bottom: 10pt;
+    margin-top: 4pt;
+    align-self: center;
+}
+
+input:focus {
+    border: thin solid lightcoral;
+    border-left: 8pt solid lightcoral;
+    outline:none;
+}
+
+button {
+    background-color: lightskyblue;
+    color: ghostwhite;
+    font-size: larger;
+    font-weight: bolder;
+    border: 0;
+    padding: 10pt 30pt;
+    margin-top: 10pt;
+    letter-spacing: 1.5pt;
+    float: right;
+}
