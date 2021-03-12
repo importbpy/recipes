@@ -3,6 +3,17 @@ body {
     font-family: Verdana, sans-serif;
     color: dimgray;
 }
+
+.menu {
+    max-width: 400pt;
+    margin: auto;
+}
+
+.menu-button {
+    background-color: #F5871F;
+    color: red;
+}
+
 form {
     max-width: 400pt;
     margin: auto;
@@ -13,7 +24,7 @@ label {
     font-size: medium;
 }
 
-input {
+input, textarea {
     background-color: ghostwhite;
     border: thin solid lightskyblue;
     border-left: 8pt solid lightskyblue;
@@ -26,7 +37,11 @@ input {
     align-self: center;
 }
 
-input:focus {
+textarea {
+    height: 300pt;
+}
+
+input:focus, textarea:focus {
     border: thin solid lightcoral;
     border-left: 8pt solid lightcoral;
     outline:none;

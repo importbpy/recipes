@@ -1,18 +1,32 @@
 {% extends 'base.html.twig' %}
 
+{% block styles %}
+    <link rel="stylesheet" href="/styles/login.css" >
+{% endblock %}
+
+{% block title %}Admin{% endblock %}
+
 {% block body %}
-    <header class="site-head">
-        <div class="container">
-            <div class="site-mast">
-                <div class="site-mast-left">
-                    <a href="/admin">
-                        <h3 style="color: white">Admin</h3>
-                    </a>
-                    <a href="/admin/new-recipe">
-                        <h3 style="color: white">Přidat recept</h3>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div class="menu">
+        <a class="menu-button" href="/admin">
+            <h3>Admin</h3>
+        </a>
+        <a class="menu-button" href="/admin/new-recipe">
+            <h3>Přidat recept</h3>
+        </a>
+    </div>
+{#    <header class="site-head">#}
+{#        <div class="container">#}
+{#            <div class="site-mast">#}
+{#                <div class="site-mast-left">#}
+{#                    <a href="/admin">#}
+{#                        <h3 style="color: white">Admin</h3>#}
+{#                    </a>#}
+{#                    <a href="/admin/new-recipe">#}
+{#                        <h3 style="color: white">Přidat recept</h3>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </header>#}
 {% endblock %}
