@@ -1,17 +1,26 @@
-body {
+html {
     background-color: gainsboro;
     font-family: Verdana, sans-serif;
+    font-size: large;
     color: dimgray;
 }
 
 .menu {
     max-width: 400pt;
     margin: auto;
+    display: flex;
 }
 
-.menu-button {
-    background-color: #F5871F;
-    color: red;
+.menu-item {
+    background-color: steelblue;
+    color: ghostwhite;
+    padding: 8pt 12pt;
+    margin: 2pt;
+    text-decoration: none;
+}
+
+a.menu-item:hover {
+    background-color: lightcoral;
 }
 
 form {
@@ -26,8 +35,8 @@ label {
 
 input, textarea {
     background-color: ghostwhite;
-    border: thin solid lightskyblue;
-    border-left: 8pt solid lightskyblue;
+    border: thin solid steelblue;
+    border-left: 8pt solid steelblue;
     font-size: larger;
     width: 95%;
     color: dimgray;
@@ -48,7 +57,7 @@ input:focus, textarea:focus {
 }
 
 button {
-    background-color: lightskyblue;
+    background-color: steelblue;
     color: ghostwhite;
     font-size: larger;
     font-weight: bolder;
