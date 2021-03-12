@@ -58,7 +58,7 @@ class HomepageController extends AbstractController
 			'tags' => $tags,
             'sort' => [
                 'az' => $sort !== 'az-asc' ? 'az-asc' : 'az-desc',
-                'date' => $sort !== 'date-asc' ? 'date-desc' : 'date-asc',
+                'date' => $sort !== 'date-desc' ? 'date-desc' : 'date-asc',
             ]
 		]);
 	}
