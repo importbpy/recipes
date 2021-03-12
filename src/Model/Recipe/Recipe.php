@@ -2,6 +2,9 @@
 
 namespace App\Model\Recipe;
 
+use App\Model\Tag\Tag;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
@@ -34,6 +37,12 @@ class Recipe
     private string $description;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Model\Tag\Tag", inversedBy="recipes")
+     * @ORM\JoinTable(name="tagging")
+     */
+    private Collection $tags;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $link;
@@ -46,6 +55,7 @@ class Recipe
         $this->title = $title;
         $this->description = $description;
         $this->slug = (new AsciiSlugger())->slug($title)->lower();
+        $this->tags = new ArrayCollection();
         $this->link = $link;
     }
 
@@ -93,6 +103,16 @@ class Recipe
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): void
+    {
+        $this->tags->add($tag);
     }
 
 }

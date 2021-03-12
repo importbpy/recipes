@@ -4,6 +4,14 @@
 <header class="site-head">
     <section class="site-head">
         <div class="container">
+            <button>
+                <a href="{{ url('homepage') ~ '?sort=' ~ sort.az }}">AZ</a>
+            </button>
+            <button>
+                <a href="{{ url('homepage') ~ '?sort=' ~ sort.date }}">date</a>
+            </button>
+        </div>
+        <div class="container">
             {% for tag in tags %}
                 <button>
                     <a class="" href="{{ url('homepage') ~ '?tags=' ~ tag.name }}">{{ tag.name }}</a>

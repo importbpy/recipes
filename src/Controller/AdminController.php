@@ -7,8 +7,6 @@ namespace App\Controller;
 use App\Model\Recipe\NewRecipe;
 use App\Model\Recipe\Recipe;
 use App\Model\Recipe\RecipeRepository;
-use App\Model\Tag\Tagging;
-use App\Model\Tag\TaggingRepository;
 use App\Model\Tag\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,21 +25,17 @@ final class AdminController extends AbstractController
 
     private TagRepository $tagRepository;
 
-    private TaggingRepository $taggingRepository;
-
     private RecipeRepository $recipeRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         TagRepository $tagRepository,
-        TaggingRepository $taggingRepository,
         RecipeRepository $recipeRepository
     )
     {
         $this->entityManager = $entityManager;
         $this->tagRepository = $tagRepository;
         $this->recipeRepository = $recipeRepository;
-        $this->taggingRepository = $taggingRepository;
     }
 
     /**
@@ -128,8 +122,8 @@ final class AdminController extends AbstractController
             return new Response('Could not find the tag', Response::HTTP_NOT_FOUND);
         }
 
-        $tagging = new Tagging($recipe, $tag);
-        $this->entityManager->persist($tagging);
+        $recipe->addTag($tag);
+
         $this->entityManager->flush();
 
         return $this->redirectToRoute('edit_recipe', ['slug' => $recipe->getSlug()]);
@@ -145,11 +139,14 @@ final class AdminController extends AbstractController
      */
     public function removeTag(string $recipeId, string $tagId): Response
     {
-        $this->taggingRepository->delete($recipeId, $tagId);
         $recipe = $this->recipeRepository->getById($recipeId);
         if ($recipe === null) {
             return new Response('Recipe not found', Response::HTTP_NOT_FOUND);
         }
+
+        $recipe->getTags()->removeElement($this->tagRepository->getById($tagId));
+        $this->entityManager->flush();
+
         return $this->redirectToRoute('edit_recipe', ['slug' => $recipe->getSlug()]);
     }
 
@@ -167,14 +164,11 @@ final class AdminController extends AbstractController
             return new Response('Recipe not found', Response::HTTP_NOT_FOUND);
         }
 
-        $taggings = $this->taggingRepository->findByRecipe($recipe);
-
         $tags = $this->tagRepository->findAll();
-
 
         return $this->render('/admin/editRecipe.html.twig', [
             'recipe' => $recipe,
-            'currentTags' => array_map(fn ($tagging) => $tagging->getTag(), $taggings),
+            'currentTags' => $recipe->getTags()->toArray(),
             'availableTags' => $tags,
         ]);
     }

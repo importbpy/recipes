@@ -18,30 +18,6 @@ class DefaultRecipeRepository extends ServiceEntityRepository implements RecipeR
         parent::__construct($registry, Recipe::class);
     }
 
-    /**
-     * @return \App\Model\Recipe\Recipe[]
-     */
-    public function getRecipes(): array
-    {
-        return $this->findBy([], ['slug' => 'ASC']);
-    }
-
-    // /**
-    //  * @return Recipe[] Returns an array of Recipe objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
     public function findOneBySlug(string $slug): ?Recipe
     {

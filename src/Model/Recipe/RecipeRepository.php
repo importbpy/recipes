@@ -7,11 +7,6 @@ namespace App\Model\Recipe;
 interface RecipeRepository
 {
 
-    /**
-     * @return \App\Model\Recipe\Recipe[]
-     */
-    public function getRecipes(): array;
-
     public function findOneBySlug(string $slug): ?Recipe;
 
     public function getById(string $id): ?Recipe;
