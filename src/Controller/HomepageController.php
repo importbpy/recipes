@@ -57,8 +57,14 @@ class HomepageController extends AbstractController
 			'recipes' => $recipes,
 			'tags' => $tags,
             'sort' => [
-                'az' => $sort !== 'az-asc' ? 'az-asc' : 'az-desc',
-                'date' => $sort !== 'date-desc' ? 'date-desc' : 'date-asc',
+                'az' => [
+                    'query' => $sort !== 'az-asc' ? 'az-asc' : 'az-desc',
+                    'label' => $sort !== 'az-asc' ? 'A/Z ↓' : 'A/Z ↑',
+                ],
+                'date' => [
+                    'query' => $sort !== 'date-desc' ? 'date-desc' : 'date-asc',
+                    'label' => $sort !== 'date-desc' ? '📅 ↑' : '📅 ↓',
+                ],
             ]
 		]);
 	}

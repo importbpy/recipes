@@ -16,8 +16,8 @@
         <div class="menu-item" style="float:right;margin-right:0;margin-left:auto;background-color: grey">{{ recipes|length }}</div>
     </div>
     <div class="tags">
-        <a href="{{ url('homepage') ~ '?sort=' ~ sort.az }}" class="tag">AZ</a>
-        <a href="{{ url('homepage') ~ '?sort=' ~ sort.date }}" class="tag">date</a>
+        <a href="{{ url('homepage') ~ '?sort=' ~ sort.az.query }}" class="tag">{{ sort.az.label }}</a>
+        <a href="{{ url('homepage') ~ '?sort=' ~ sort.date.query }}" class="tag">{{ sort.date.label }}</a>
     </div>
     <div class="tags">
         {% for tag in tags %}
