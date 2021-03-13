@@ -47,8 +47,8 @@ a.tag:hover {
 
 .grid {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
-    grid-gap: 20pt;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 8pt 2%;
     color: darkslategray;
     padding-top: 30pt;
 }
