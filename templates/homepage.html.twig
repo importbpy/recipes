@@ -13,6 +13,7 @@
         <a href="/admin" class="menu-item" >
             Admin
         </a>
+        <div class="menu-item" style="float:right;margin-right:0;margin-left:auto;background-color: grey">{{ recipes|length }}</div>
     </div>
     <div class="tags">
         <a href="{{ url('homepage') ~ '?sort=' ~ sort.az }}" class="tag">AZ</a>
