@@ -13,6 +13,7 @@ html {
 
 .menu {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .menu-item {
@@ -29,6 +30,7 @@ a.menu-item:hover {
 
 .tags {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .tag {
