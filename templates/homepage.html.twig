@@ -32,7 +32,7 @@
         {% for recipe in recipes %}
             <a class="recipe" href="{{ '/recept/' ~ recipe.slug }}">
                 <div class="aspect">
-                    <img src="{{ 'http://' ~ app.request.host ~ '/images/small/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }} " class="fill">
+                    <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }} " class="fill">
                 </div>
                 <h2 class="recipe-title">{{ recipe.title }}</h2>
             </a>

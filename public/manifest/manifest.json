@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "Recepty",
+    "short_name": "Recepty",
+    "start_url": "https://saarinen.cz",
+    "display": "minimal-ui",
+    "background_color": "#fff",
+    "description": "Our own list of favourite recipes",
+    "icons": [{
+        "src": "icon/hd_hi.svg",
+        "sizes": "any"
+      }]
+  }
+  
