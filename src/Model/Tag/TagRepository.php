@@ -4,6 +4,10 @@ declare(strict_types = 1);
 
 namespace App\Model\Tag;
 
+/**
+ * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tag[]    findAll()
+ */
 interface TagRepository
 {
 
