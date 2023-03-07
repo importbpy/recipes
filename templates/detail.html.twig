@@ -5,32 +5,17 @@
 {% endblock %}
 
 {% block body %}
-    <header class="site-head">
-        <div class="container">
-            <div class="site-mast">
-                <div class="site-mast-left">
-                    <a href="/">
-                        <h3 style="color: white">Recepty</h3>
-                    </a>
-                    <h3 style="color: white">
-                        <a href="{{ url('edit_recipe', {slug: recipe.slug}) }}" rel="nofollow">Editovat recept</a>
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </header>
-    <main class="site-main">
-        <div class="container">
-            <article class="content">
-                <figure class="post-feature-image">
-                    <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}">
-                </figure>
-                <section class="post-full-content">
-                    <h1 class="content-title">{{ recipe.title }}</h1>
-                    <section class="content-body">{{ recipe.description|markup|raw }}</section>
-                </section>
-            </article>
-        </div>
-    </main>
+    <div class="container-md">
+        <article class="">
+            <figure class="">
+                <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}" class="object-fit-cover w-100 img-title">
+            </figure>
+            <section class="post-full-content">
+                <h1 class="display-4">{{ recipe.title }}</h1>
+                <section class="content-body">{{ recipe.description|markup|raw }}</section>
+            </section>
+        </article>
+        <a href="{{ url('edit_recipe', {slug: recipe.slug}) }}" rel="nofollow" class="btn btn-outline-light text-decoration-none text-secondary">Editovat recept</a>
+    </div>
 {% endblock %}
 

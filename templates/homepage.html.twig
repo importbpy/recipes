@@ -1,43 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block styles %}
-    <link rel="stylesheet" href="/styles/login.css" >
-{% endblock %}
-
 {% block body %}
-<div class="container">
-    <div class="menu">
-        <a href="/" class="menu-item" >
-            Recepty
-        </a>
-        <a href="/admin" class="menu-item" >
-            Admin
-        </a>
-        <div class="menu-item" style="float:right;margin-right:0;margin-left:auto;background-color: grey">{{ recipes|length }}</div>
-    </div>
-    <div class="tags">
-        <a href="{{ url('homepage') ~ '?sort=' ~ sort.az.query }}" class="tag">{{ sort.az.label }}</a>
-        <a href="{{ url('homepage') ~ '?sort=' ~ sort.date.query }}" class="tag">{{ sort.date.label }}</a>
-    </div>
-    <div class="tags">
-        {% for tag in tags %}
-            <a href="{{ url('homepage') ~ '?tags=' ~ tag.name }}" class="tag">{{ tag.name }}</a>
-        {% endfor %}
-    </div>
-    <div class="tags">
-        <a href="{{ url('homepage') }}" class="tag">odebrat tagy</a>
-    </div>
+	<div class="container-md">
+        <h3 class="badge bg-secondary">
+            {{ recipes|length }}
+        </h3>
+        <section class="my-4">
+            <div class="my-1">
+                <a href="{{ url('homepage') ~ '?sort=' ~ sort.az.query }}" class="btn btn-outline-secondary btn-sm my-1">{{ sort.az.label }}</a>
+                <a href="{{ url('homepage') ~ '?sort=' ~ sort.date.query }}" class="btn btn-outline-secondary btn-sm my-1">{{ sort.date.label }}</a>
+            </div>
+            <div class="my-1">
+                {% for tag in tags %}
+                    <a href="{{ url('homepage') ~ '?tags=' ~ tag.name }}" class="btn btn-outline-secondary btn-sm my-1">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+            <div class="my-1">
+                <a href="{{ url('homepage') }}" class="btn btn-outline-warning btn-sm my-1">odebrat tagy</a>
+            </div>
+        </section>
 
-    <div class="grid">
-        {% for recipe in recipes %}
-            <a class="recipe" href="{{ '/recept/' ~ recipe.slug }}">
-                <div class="aspect">
-                    <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }} " class="fill">
+		<div class="row row-gap-4 mb-4">
+			{% for recipe in recipes %}
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card recipe-card overflow-hidden bg-body-tertiary">
+                        <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }} " class="img-crop object-fit-cover w-100">
+                        <a class="fs-6 fw-normal text-decoration-none text-secondary p-3 stretched-link" href="{{ '/recept/' ~ recipe.slug }}">
+                            {{ recipe.title }}
+                        </a>
+                    </div>
                 </div>
-                <h2 class="recipe-title">{{ recipe.title }}</h2>
-            </a>
-        {% endfor %}
-    </div>
-</div>
+			{% endfor %}
+		</div>
+	</div>
 
 {% endblock %}

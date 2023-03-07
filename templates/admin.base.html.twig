@@ -1,17 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block styles %}
-    <link rel="stylesheet" href="/styles/login.css" >
-{% endblock %}
-
 {% block title %}Admin{% endblock %}
 
 {% block body %}
-    <div class="menu">
-        <a href="/" class="menu-item" >
-            Recepty
-        </a>
-        <a href="/admin/new-recipe" class="menu-item" >
+    <div class="container-md my-4">
+        <a href="/admin/new-recipe" class="btn btn-primary" >
             Přidat recept
         </a>
     </div>

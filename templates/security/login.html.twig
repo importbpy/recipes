@@ -1,12 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block styles %}
-    <link rel="stylesheet" href="/styles/login.css" >
-{% endblock %}
-
 {% block title %}Přihlášení{% endblock %}
 
 {% block body %}
+<div class="container-md">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -42,4 +39,6 @@
         Přihlásit se
     </button>
 </form>
+</div>
+
 {% endblock %}

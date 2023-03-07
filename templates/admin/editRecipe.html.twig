@@ -3,36 +3,20 @@
 {% block title %}Upravit recept{% endblock %}
 
 {% block body %}
-    <header class="site-head">
-        <div class="container">
-            <div class="site-mast">
-                <div class="site-mast-left">
-                    <a href="/">
-                        <h3 style="color: white">Recepty</h3>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+    
     <main class="site-main">
-        <div class="container">
-            <article class="content">
-                <figure class="post-feature-image">
-                    <img src="{{ 'http://' ~ app.request.host ~ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}">
-                </figure>
-                <section class="post-full-content">
-                    <h1 class="content-title">{{ recipe.title }}</h1>
-                    <h4 class="kg-bookmark-title">Přidané tagy</h4>
+        <div class="container-md">
+            <article>
+                <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}" class="object-fit-cover w-100 img-title">
+                <section>
+                    <h1 class="display-5">{{ recipe.title }}</h1>
+                    <h2>Přidané tagy</h4>
                     {% for tag in currentTags %}
-                        <button>
-                            <a class="" href="{{ url('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
-                        </button>
+                        <a class="btn btn-secondary my-1" href="{{ url('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
                     {% endfor %}
-                    <h4 class="kg-bookmark-title">Přidat další tag</h4>
+                    <h2>Přidat další tag</h4>
                     {% for tag in availableTags %}
-                        <button>
-                            <a class="" href="{{ url('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
-                        </button>
+                        <a class="btn btn-light my-1" href="{{ url('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
                     {% endfor %}
                 </section>
             </article>
