@@ -1,7 +1,3 @@
-# recipes
+# Recipes
 
-
-
-# run composer install as www-data user
-
-`sudo su -l www-data -s /bin/bash -c "cd $PWD; composer install"`
+Self-hosted recipe website to help you organize your recipes.
