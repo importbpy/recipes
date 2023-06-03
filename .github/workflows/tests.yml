@@ -1,11 +1,11 @@
-name: CI
+name: tests
 
 on: [push]
 
 jobs:
-  build-test:
+  tests:
+    name: Run tests
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
