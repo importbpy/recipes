@@ -1,0 +1,18 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Build Composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: 8.1
+          php_extensions: gd
+      - run: echo "Composer dependencies have been installed"
+      - run: composer phpstan
