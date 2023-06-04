@@ -10,12 +10,32 @@
             <figure class="">
                 <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}" class="object-fit-cover w-100 img-title">
             </figure>
+            {% if is_granted('ROLE_ADMIN') %}
+                <section>
+                    {% if currentTags|length > 0 %}
+                        <h2>Přidané tagy</h2>
+                        {% for tag in currentTags %}
+                            <a class="btn btn-secondary my-1" href="{{ url('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
+                        {% endfor %}
+                    {% endif %}
+                    {% if availableTags|length > 0 %}
+                        <h2>Přidat další tag</h2>
+                        {% for tag in availableTags %}
+                            <a class="btn btn-light my-1" href="{{ url('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
+                        {% endfor %}
+                    {% endif %}
+                </section>
+            {% endif %}
             <section class="post-full-content">
                 <h1 class="display-4">{{ recipe.title }}</h1>
+
                 <section class="content-body">{{ recipe.description|markup|raw }}</section>
             </section>
         </article>
-        <a href="{{ url('edit_recipe', {slug: recipe.slug}) }}" rel="nofollow" class="btn btn-outline-light text-decoration-none text-secondary">Editovat recept</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ url('edit_recipe', {slug: recipe.slug}) }}" class="btn btn-outline-light text-decoration-none text-secondary">Editovat recept</a>
+        {% endif %}
+
     </div>
 {% endblock %}
 

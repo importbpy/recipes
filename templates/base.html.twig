@@ -17,18 +17,30 @@
 </head>
 <body>
 
-<nav class="navbar bg-body-tertiary">
+<nav class="navbar bg-body-tertiary navbar-expand-md">
     <div class="container-md">
         <a class="navbar-brand" href="/">Recepty</a>
-        {# <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button> #}
-        <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('create_new_recipe') }}">Přidat recept</a>
+                    </li>
+                {% endif %}
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Odhlásit se</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">Přihlásit se</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        </div>
-
     </div>
 </nav>
 

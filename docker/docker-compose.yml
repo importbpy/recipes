@@ -32,3 +32,9 @@ services:
       context: php
     volumes:
       - ..:/var/www/recipes
+
+  adminer:
+    container_name: recipes_adminer
+    image: adminer
+    ports:
+      - 666:8080
