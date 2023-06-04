@@ -126,7 +126,7 @@ final class AdminController extends AbstractController
 
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('edit_recipe', ['slug' => $recipe->getSlug()]);
+        return $this->redirectToRoute('detail', ['slug' => $recipe->getSlug()]);
     }
 
     /**
@@ -147,7 +147,7 @@ final class AdminController extends AbstractController
         $recipe->getTags()->removeElement($this->tagRepository->getById($tagId));
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('edit_recipe', ['slug' => $recipe->getSlug()]);
+        return $this->redirectToRoute('detail', ['slug' => $recipe->getSlug()]);
     }
 
     /**
