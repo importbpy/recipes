@@ -10,11 +10,11 @@
                 <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}" class="object-fit-cover w-100 img-title">
                 <section>
                     <h1 class="display-5">{{ recipe.title }}</h1>
-                    <h2>Přidané tagy</h4>
+                    <h2>Přidané tagy</h2>
                     {% for tag in currentTags %}
                         <a class="btn btn-secondary my-1" href="{{ url('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
                     {% endfor %}
-                    <h2>Přidat další tag</h4>
+                    <h2>Přidat další tag</h2>
                     {% for tag in availableTags %}
                         <a class="btn btn-light my-1" href="{{ url('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
                     {% endfor %}

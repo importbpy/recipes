@@ -42,7 +42,6 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "easycorp/easy-log-handler": "^1.0.7",
         "phpstan/phpstan": "^1.10",
         "symfony/browser-kit": "5.4.*",
         "symfony/css-selector": "5.4.*",
