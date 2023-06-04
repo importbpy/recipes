@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Model\Recipe\RecipeRepository;
+use App\Model\Tag\Tag;
 use App\Model\Tag\TagRepository;
 use Parsedown;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,11 +39,15 @@ final class DetailController extends AbstractController
             return new Response('Recipe not found', 404);
         }
 
-        $tags = $this->tagRepository->findAll();
+        $currentTags = $recipe->getTags()->toArray();
+        $currentTagIds = array_map(fn (Tag $tag) => $tag->getId(), $currentTags);
+        $tags = array_filter($this->tagRepository->findAll(), function (Tag $tag) use ($currentTagIds): bool  {
+            return !in_array($tag->getId(), $currentTagIds);
+        });
 
         return $this->render('detail.html.twig', [
             'recipe' => $recipe,
-            'currentTags' => $recipe->getTags()->toArray(),
+            'currentTags' => $currentTags,
             'availableTags' => $tags,
         ]);
     }
