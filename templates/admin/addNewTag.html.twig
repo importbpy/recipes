@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vytvořit nový tag{% endblock %}
+
+{% block body %}
+    <div class="container-md">
+    <main class="site-main">
+        <div class="container-flex">
+            <article class="content">
+                <section class="post-full-content">
+                    {{ form(form) }}
+                </section>
+            </article>
+        </div>
+    </main>
+    </div>
+
+{% endblock %}

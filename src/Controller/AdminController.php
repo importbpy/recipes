@@ -7,9 +7,12 @@ namespace App\Controller;
 use App\Model\Recipe\NewRecipe;
 use App\Model\Recipe\Recipe;
 use App\Model\Recipe\RecipeRepository;
+use App\Model\Tag\NewTag;
+use App\Model\Tag\Tag;
 use App\Model\Tag\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -171,6 +174,83 @@ final class AdminController extends AbstractController
             'currentTags' => $recipe->getTags()->toArray(),
             'availableTags' => $tags,
         ]);
+    }
+
+    /**
+     * @Route(
+     *     "/admin/edit/tags",
+     *     name="edit_tags"
+     * )
+     */
+    public function editTags(): Response
+    {
+        $tags = $this->tagRepository->findAll();
+
+        return $this->render(
+            '/admin/editTags.html.twig',
+            ['tags' => $tags]
+        );
+    }
+
+    /**
+     * @Route(
+     *     "/admin/tag/create",
+     *     name="create_tag"
+     * )
+     */
+    public function createTag(Request $request): Response
+    {
+        $newTag = new NewTag();
+
+        $form = $this->createFormBuilder($newTag)
+            ->add('name', TextType::class)
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Surovina' => 'ingredient',
+                    'Druh' => 'type',
+                    'Příloha' => 'sidedish',
+                 ]
+            ])
+            ->add('submit', SubmitType::class)
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $tag = new Tag(
+                $newTag->getName(),
+                $newTag->getType(),
+            );
+            $this->entityManager->persist($tag);
+
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('edit_tags');
+        }
+
+        return $this->render(
+            '/admin/addNewRecipe.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route(
+     *     "/admin/delete-tag/{tagId}",
+     *     name="delete_tag",
+     *     requirements={"tagId"="\d+"},
+     *     methods={"GET"}
+     * )
+     */
+    public function deleteTag(string $tagId): Response
+    {
+        $this->tagRepository->deleteTag($tagId);
+
+        return $this->redirectToRoute('edit_tags');
     }
 
 }

@@ -39,4 +39,12 @@ final class DefaultTagRepository extends ServiceEntityRepository implements TagR
             ]);
         return array_map(fn ($row) => $row['id'], $result);
     }
+
+    public function deleteTag(string $id): void
+    {
+        $tag = $this->find($id);
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($tag);
+        $entityManager->flush();
+    }
 }
