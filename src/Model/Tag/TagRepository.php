@@ -19,4 +19,6 @@ interface TagRepository
      */
     public function getIdsByTagNames(array $tagNames): array;
 
+    public function deleteTag(string $id): void;
+
 }

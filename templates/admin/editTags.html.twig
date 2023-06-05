@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upravit tagy{% endblock %}
+
+{% block body %}
+    
+    <main class="site-main">
+        <div class="container-md">
+            <h1 class="display-5">Úprava tagů</h1>
+            <article>
+                <section>
+                    <a class="btn btn-large btn-primary" href="{{ path('create_tag') }}">Create a new tag</a>
+                    <h2>Vytvořené tagy</h2>
+                    {% for tag in tags %}
+                        <div class="btn btn-secondary my-1" >{{ tag.name }} <a href="{{ path('delete_tag', {tagId: tag.id}) }}"><span class="badge bg-danger">x</span></a> </div>
+                    {% endfor %}
+                </section>
+            </article>
+        </div>
+    </main>
+{% endblock %}
