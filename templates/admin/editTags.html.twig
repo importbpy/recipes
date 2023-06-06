@@ -12,10 +12,42 @@
                     <a class="btn btn-large btn-primary" href="{{ path('create_tag') }}">Create a new tag</a>
                     <h2>Vytvořené tagy</h2>
                     {% for tag in tags %}
-                        <div class="btn btn-secondary my-1" >{{ tag.name }} <a href="{{ path('delete_tag', {tagId: tag.id}) }}"><span class="badge bg-danger">x</span></a> </div>
+                        <h3 class="d-inline m-2">
+                            <div class="badge bg-secondary d-inline" >
+                                {{ tag.name }}
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#{{ tag.id }}">
+                                    x
+                                </button>
+                            </div>
+                        </h3>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="{{ tag.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Smazat tag <i><b>{{ tag.name }}</b></i></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Smazáním tagu odstraníte tag i ze všech receptů. Opravdu ho chcete smazat? Tato akce je nevratná.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-danger" href="{{ path('delete_tag', {tagId: tag.id}) }}">Smazat</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                 </section>
             </article>
         </div>
+
+
+
+
+
+
     </main>
 {% endblock %}
+

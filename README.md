@@ -21,3 +21,20 @@ Initialize image directories and set permissions
 ```
 docker exec -it recipes_php /bin/bash -c 'mkdir -p /var/www/recipes/public/images/original/ /var/www/recipes/public/images/small/ && chmod -R a+w /var/www/recipes/public/images/'
 ```
+
+
+### Adminer
+
+Adminer runs at http://localhost:666.
+
+System: MySQL
+Server: database:3306
+Username: root
+Password: password
+Database: recipes
+
+### Application
+
+Recipes application runs at http://localhost:8080.
+
+First created user is a super admin with all possible privileges.
