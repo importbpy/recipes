@@ -34,6 +34,27 @@
         </article>
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ url('edit_recipe', {slug: recipe.slug}) }}" class="btn btn-outline-light text-decoration-none text-secondary">Editovat recept</a>
+{#            <a href="{{ url('edit_recipe', {slug: recipe.slug}) }}" class="btn btn-danger text-decoration-none">Smazat recept</a>#}
+            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-recipe">
+                Smazat recept
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="delete-recipe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Smazat recept <i><b>{{ recipe.title }}</b></i></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Opravdu chcete smazat recept? Tato akce je nevratná.
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger" href="{{ path('delete_recipe', {recipeId: recipe.id}) }}">Smazat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
 
     </div>

@@ -11,4 +11,6 @@ interface RecipeRepository
 
     public function getById(string $id): ?Recipe;
 
+    public function deleteRecipe(string $id): void;
+
 }

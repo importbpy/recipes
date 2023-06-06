@@ -33,4 +33,11 @@ class DefaultRecipeRepository extends ServiceEntityRepository implements RecipeR
         return $this->find($id);
     }
 
+    public function deleteRecipe(string $id): void
+    {
+        $recipe = $this->find($id);
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($recipe);
+        $entityManager->flush();
+    }
 }

@@ -47,7 +47,7 @@ final class AdminController extends AbstractController
      *     name="admin_homepage"
      * )
      */
-    public function adminHomepage(): Response
+    public function adminHomepage(): Response // TODO: delete this controller and also twig
     {
         return $this->render(
             'admin.base.html.twig'
@@ -104,6 +104,21 @@ final class AdminController extends AbstractController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route(
+     *     "/admin/delete-recipe/{recipeId}",
+     *     name="delete_recipe",
+     *     requirements={"recipeId"="\d+"},
+     *     methods={"GET"}
+     * )
+     */
+    public function deleteRecipe(string $recipeId): Response
+    {
+        $this->recipeRepository->deleteRecipe($recipeId);
+
+        return $this->redirectToRoute('homepage');
     }
 
     /**
