@@ -43,6 +43,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
+        "squizlabs/php_codesniffer": "^3.7",
         "symfony/browser-kit": "5.4.*",
         "symfony/css-selector": "5.4.*",
         "symfony/debug-bundle": "5.4.*",
@@ -59,7 +60,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "symfony/flex": true,
-            "ocramius/package-versions": true
+            "ocramius/package-versions": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "autoload": {
@@ -92,7 +94,9 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "phpstan" : "vendor/bin/phpstan analyse -c phpstan.neon"
+        "phpstan" : "vendor/bin/phpstan analyse -c phpstan.neon",
+        "cs" : "vendor/bin/phpcs --ignore=*/Migrations/* src",
+        "cbf" : "vendor/bin/phpcbf --ignore=*/Migrations/* src"
     },
     "conflict": {
         "symfony/symfony": "*"

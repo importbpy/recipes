@@ -13,7 +13,6 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  */
 class Recipe
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -115,5 +114,4 @@ class Recipe
     {
         $this->tags->add($tag);
     }
-
 }

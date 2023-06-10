@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Model\Tag;
 
@@ -14,7 +14,6 @@ use Doctrine\ORM\PersistentCollection;
  */
 class Tag
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -66,5 +65,4 @@ class Tag
     {
         return $this->recipes;
     }
-
 }
