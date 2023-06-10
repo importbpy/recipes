@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Model\Recipe;
 
@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class NewRecipe
 {
-
     private string $title = '';
 
     private string $description = '';
@@ -45,5 +44,4 @@ final class NewRecipe
     {
         $this->image = $image;
     }
-
 }

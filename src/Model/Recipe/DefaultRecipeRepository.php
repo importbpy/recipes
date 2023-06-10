@@ -29,7 +29,8 @@ class DefaultRecipeRepository extends ServiceEntityRepository implements RecipeR
         ;
     }
 
-    public function getById(string $id): ?Recipe {
+    public function getById(string $id): ?Recipe
+    {
         return $this->find($id);
     }
 

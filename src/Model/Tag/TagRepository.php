@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Model\Tag;
 
@@ -10,7 +10,6 @@ namespace App\Model\Tag;
  */
 interface TagRepository
 {
-
     public function getById(string $id): ?Tag;
 
     /**
@@ -20,5 +19,4 @@ interface TagRepository
     public function getIdsByTagNames(array $tagNames): array;
 
     public function deleteTag(string $id): void;
-
 }

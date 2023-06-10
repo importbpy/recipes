@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Model\Tag;
 
 final class NewTag
 {
-
     private string $name = '';
 
     private string $type = '';
@@ -30,5 +29,4 @@ final class NewTag
     {
         $this->type = $type;
     }
-
 }

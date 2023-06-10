@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class DetailController extends AbstractController
 {
-
     private RecipeRepository $recipeRepository;
     private TagRepository $tagRepository;
 
@@ -41,7 +40,7 @@ final class DetailController extends AbstractController
 
         $currentTags = $recipe->getTags()->toArray();
         $currentTagIds = array_map(fn (Tag $tag) => $tag->getId(), $currentTags);
-        $tags = array_filter($this->tagRepository->findAll(), function (Tag $tag) use ($currentTagIds): bool  {
+        $tags = array_filter($this->tagRepository->findAll(), function (Tag $tag) use ($currentTagIds): bool {
             return !in_array($tag->getId(), $currentTagIds);
         });
 
@@ -51,5 +50,4 @@ final class DetailController extends AbstractController
             'availableTags' => $tags,
         ]);
     }
-
 }

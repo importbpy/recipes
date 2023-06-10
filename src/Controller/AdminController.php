@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -23,7 +23,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class AdminController extends AbstractController
 {
-
     private EntityManagerInterface $entityManager;
 
     private TagRepository $tagRepository;
@@ -34,8 +33,7 @@ final class AdminController extends AbstractController
         EntityManagerInterface $entityManager,
         TagRepository $tagRepository,
         RecipeRepository $recipeRepository
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->tagRepository = $tagRepository;
         $this->recipeRepository = $recipeRepository;
@@ -75,7 +73,6 @@ final class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $recipe = new Recipe(
                 $newRecipe->getTitle(),
                 $newRecipe->getDescription(),
@@ -90,9 +87,9 @@ final class AdminController extends AbstractController
             }
 
             $image = imagecreatefromjpeg(__DIR__ . '/../../public/images/original/' . $recipe->getSlug() . '.jpg');
-            $imgResized = imagescale($image , 400);
+            $imgResized = imagescale($image, 400);
             imagejpeg($imgResized, __DIR__ . '/../../public/images/small/' . $recipe->getSlug() . '.jpg');
-            $imgResized = imagescale($image , 1200);
+            $imgResized = imagescale($image, 1200);
             imagejpeg($imgResized, __DIR__ . '/../../public/images/' . $recipe->getSlug() . '.jpg');
 
             return $this->redirectToRoute('homepage');
@@ -233,7 +230,6 @@ final class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $tag = new Tag(
                 $newTag->getName(),
                 $newTag->getType(),
@@ -267,5 +263,4 @@ final class AdminController extends AbstractController
 
         return $this->redirectToRoute('edit_tags');
     }
-
 }

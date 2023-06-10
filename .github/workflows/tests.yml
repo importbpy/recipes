@@ -16,3 +16,4 @@ jobs:
           php_extensions: gd
       - run: echo "Composer dependencies have been installed"
       - run: composer phpstan
+      - run: composer cs
