@@ -35,7 +35,7 @@ final class DefaultTagRepository extends ServiceEntityRepository implements TagR
             ->getQuery()
             ->execute([
                 'tagNames' => $tagNames,
-                'tagCount' => count($tagNames)
+                'tagCount' => count($tagNames),
             ]);
         return array_map(fn ($row) => $row['id'], $result);
     }

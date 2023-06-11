@@ -13,7 +13,7 @@ final class TwigExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('markup', [$this, 'markupToHtml'])
+            new TwigFilter('markup', [$this, 'markupToHtml']),
         ];
     }
 
