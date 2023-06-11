@@ -114,4 +114,9 @@ class Recipe
     {
         $this->tags->add($tag);
     }
+
+    public function getImage(): string
+    {
+        return '';
+    }
 }

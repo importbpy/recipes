@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Recipe\NewRecipe;
+use App\Form\RecipeFormType;
+use App\Model\Image\ImageManager;
 use App\Model\Recipe\Recipe;
 use App\Model\Recipe\RecipeRepository;
 use App\Model\Tag\NewTag;
@@ -13,9 +14,7 @@ use App\Model\Tag\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,28 +27,18 @@ final class AdminController extends AbstractController
     private TagRepository $tagRepository;
 
     private RecipeRepository $recipeRepository;
+    private ImageManager $imageManager;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         TagRepository $tagRepository,
-        RecipeRepository $recipeRepository
+        RecipeRepository $recipeRepository,
+        ImageManager $imageManager
     ) {
         $this->entityManager = $entityManager;
         $this->tagRepository = $tagRepository;
         $this->recipeRepository = $recipeRepository;
-    }
-
-    /**
-     * @Route(
-     *     "/admin",
-     *     name="admin_homepage"
-     * )
-     */
-    public function adminHomepage(): Response // TODO: delete this controller and also twig
-    {
-        return $this->render(
-            'admin.base.html.twig'
-        );
+        $this->imageManager = $imageManager;
     }
 
     /**
@@ -60,15 +49,9 @@ final class AdminController extends AbstractController
      */
     public function addNewRecipe(Request $request): Response
     {
-        $newRecipe = new NewRecipe();
+        $newRecipe = new Recipe('', '', null); // This Recipe instance is here to retrieve data from the form
 
-        $form = $this->createFormBuilder($newRecipe)
-            ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('image', FileType::class)
-            ->add('submit', SubmitType::class)
-            ->getForm()
-        ;
+        $form = $this->createForm(RecipeFormType::class, $newRecipe);
 
         $form->handleRequest($request);
 
@@ -78,25 +61,52 @@ final class AdminController extends AbstractController
                 $newRecipe->getDescription(),
                 null,
             );
-            $this->entityManager->persist($recipe);
-
-            $this->entityManager->flush();
-            $image = $newRecipe->getImage();
+            $image = $form->get('image')->getData();
             if ($image !== null) {
-                $image->move(__DIR__ . '/../../public/images/original', $recipe->getSlug() . '.jpg');
+                $this->imageManager->saveImage($image, $recipe->getSlug());
             }
 
-            $image = imagecreatefromjpeg(__DIR__ . '/../../public/images/original/' . $recipe->getSlug() . '.jpg');
-            $imgResized = imagescale($image, 400);
-            imagejpeg($imgResized, __DIR__ . '/../../public/images/small/' . $recipe->getSlug() . '.jpg');
-            $imgResized = imagescale($image, 1200);
-            imagejpeg($imgResized, __DIR__ . '/../../public/images/' . $recipe->getSlug() . '.jpg');
+            $this->entityManager->persist($recipe);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('homepage');
         }
 
         return $this->render(
             '/admin/addNewRecipe.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route(
+     *     "/admin/edit/recipe/{recipeId}",
+     *     name="edit_recipe",
+     *     requirements={"recipeId"="\d+"}
+     * )
+     */
+    public function editRecipe(Request $request, string $recipeId): Response
+    {
+        $recipe = $this->recipeRepository->getById($recipeId);
+
+        $form = $this->createForm(RecipeFormType::class, $recipe);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $this->imageManager->saveImage($image, $recipe->getSlug());
+            }
+
+            $this->entityManager->flush();
+            return $this->redirectToRoute('detail', ['slug' => $recipe->getSlug()]);
+        }
+
+        return $this->render(
+            '/admin/editRecipe.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -168,11 +178,11 @@ final class AdminController extends AbstractController
     /**
      * @Route(
      *     "/admin/edit/recipe/{slug}",
-     *     name="edit_recipe",
+     *     name="edit_recipe_old",
      *     requirements={"slug"="[a-z\-]+"}
      * )
      */
-    public function editRecipe(string $slug): Response
+    public function editRecipeOld(string $slug): Response
     {
         $recipe = $this->recipeRepository->findOneBySlug($slug);
         if ($recipe === null) {

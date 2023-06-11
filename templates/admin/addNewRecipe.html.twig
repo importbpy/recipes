@@ -4,15 +4,21 @@
 
 {% block body %}
     <div class="container-md">
-    <main class="site-main">
-        <div class="container-flex">
-            <article class="content">
-                <section class="post-full-content">
-                    {{ form(form) }}
-                </section>
-            </article>
-        </div>
-    </main>
+        <main class="site-main">
+            <div class="container-flex">
+                <article class="content">
+                    <section class="post-full-content">
+                        {{ form_start(form) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.image) }}
+
+                        <button type="submit" class="btn btn-primary">Uložit změny</button>
+                        {{ form_end(form) }}
+                    </section>
+                </article>
+            </div>
+        </main>
     </div>
 
 {% endblock %}
