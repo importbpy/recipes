@@ -7,10 +7,9 @@ namespace App\Controller;
 use App\Model\Recipe\RecipeRepository;
 use App\Model\Tag\Tag;
 use App\Model\Tag\TagRepository;
-use Parsedown;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Annotation\Route as Route;
 
 final class DetailController extends AbstractController
 {

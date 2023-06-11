@@ -8,7 +8,7 @@ use App\Model\Recipe\DefaultRecipeRepository;
 use App\Model\Tag\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Annotation\Route as Route;
 
 class HomepageController extends AbstractController
 {
@@ -64,7 +64,7 @@ class HomepageController extends AbstractController
                     'query' => $sort !== 'date-desc' ? 'date-desc' : 'date-asc',
                     'label' => $sort !== 'date-desc' ? '📅 ↑' : '📅 ↓',
                 ],
-            ]
+            ],
         ]);
     }
 }

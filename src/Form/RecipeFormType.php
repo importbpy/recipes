@@ -17,11 +17,11 @@ class RecipeFormType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Název'
+                'label' => 'Název',
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Popis',
-                'attr' => ['style' => 'height: 50vh']
+                'attr' => ['style' => 'height: 50vh'],
             ])
             ->add('image', FileType::class, [
                 'label' => 'Foto',
@@ -35,7 +35,7 @@ class RecipeFormType extends AbstractType
                             'image/jpeg',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid jpeg or png image',
-                    ])
+                    ]),
                 ],
             ])
         ;
