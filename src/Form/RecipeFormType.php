@@ -22,11 +22,13 @@ class RecipeFormType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Popis',
                 'attr' => ['style' => 'height: 50vh'],
+                'help' => 'Popis lze formátovat pomocí markup language',
             ])
             ->add('image', FileType::class, [
-                'label' => 'Foto',
+                'label' => 'Obrázek',
                 'mapped' => false,
                 'required' => false,
+                'help' => 'Obrázek musí být ve formátu JPG',
                 'constraints' => [
                     new File([
                         'maxSize' => '8192k',
