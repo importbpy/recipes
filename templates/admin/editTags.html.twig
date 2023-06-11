@@ -3,34 +3,38 @@
 {% block title %}Upravit tagy{% endblock %}
 
 {% block body %}
-    
     <main class="site-main">
-        <div class="container-md">
-            <h1 class="display-5">Úprava tagů</h1>
-            <article>
-                <section>
-                    <a class="btn btn-large btn-primary" href="{{ path('create_tag') }}">Create a new tag</a>
-                    <h2>Vytvořené tagy</h2>
+        <div class="container-md py-4">
+            <h1>Úprava tagů</h1>
+            <section class="py-3">
+                <a class="btn btn-large btn-secondary" href="{{ path('create_tag') }}">Přidat nový tag</a>
+            </section>
+            <section class="py-3">
+                <h2>Vytvořené tagy</h2>
+                <section class="py-3 d-flex flex-wrap gap-2">
                     {% for tag in tags %}
-                        <h3 class="d-inline m-2">
-                            <div class="badge bg-secondary d-inline" >
-                                {{ tag.name }}
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#{{ tag.id }}">
-                                    x
-                                </button>
-                            </div>
-                        </h3>
+                        <div class="card d-inline p-1 bg-secondary-subtle">
+                            <span class="m-2">{{ tag.name }}</span>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#{{ tag.id }}" style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .6rem; --bs-btn-font-size: .8rem;">
+                                ✕
+                            </button>
+                        </div>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="{{ tag.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="{{ tag.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Smazat tag <i><b>{{ tag.name }}</b></i></h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Smazat tag
+                                            <i><b>{{ tag.name }}</b></i></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Smazáním tagu odstraníte tag i ze všech receptů. Opravdu ho chcete smazat? Tato akce je nevratná.
+                                        Smazáním tagu odstraníte tag i ze všech receptů. Opravdu ho chcete smazat? Tato
+                                        akce je nevratná.
                                     </div>
                                     <div class="modal-footer">
                                         <a class="btn btn-danger" href="{{ path('delete_tag', {tagId: tag.id}) }}">Smazat</a>
@@ -40,12 +44,8 @@
                         </div>
                     {% endfor %}
                 </section>
-            </article>
+            </section>
         </div>
-
-
-
-
 
 
     </main>
