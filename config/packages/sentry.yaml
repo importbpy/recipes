@@ -10,7 +10,7 @@ when@prod:
             arguments:
                 $options:
                     ignore_exceptions:
-                        - NotFoundException
+                        - NotFoundHttpException
 
 #        If you are using Monolog, you also need these additional configuration and services to log the errors correctly:
 #        https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
