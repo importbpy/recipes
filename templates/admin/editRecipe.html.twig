@@ -3,23 +3,22 @@
 {% block title %}Upravit recept{% endblock %}
 
 {% block body %}
-    
-    <main class="site-main">
-        <div class="container-md">
-            <article>
-                <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}" class="object-fit-cover w-100 img-title">
-                <section>
-                    <h1 class="display-5">{{ recipe.title }}</h1>
-                    <h2>Přidané tagy</h2>
-                    {% for tag in currentTags %}
-                        <a class="btn btn-secondary my-1" href="{{ url('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
-                    {% endfor %}
-                    <h2>Přidat další tag</h2>
-                    {% for tag in availableTags %}
-                        <a class="btn btn-light my-1" href="{{ url('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}">{{ tag.name }}</a>
-                    {% endfor %}
-                </section>
-            </article>
-        </div>
-    </main>
+    <div class="container-md">
+        <main class="site-main">
+            <div class="container-flex">
+                <article class="content">
+                    <section class="post-full-content">
+                        {{ form_start(form) }}
+                            {{ form_row(form.title) }}
+                            {{ form_row(form.description) }}
+                            {{ form_row(form.image) }}
+
+                            <button type="submit" class="btn btn-primary">Uložit změny</button>
+                        {{ form_end(form) }}
+                    </section>
+                </article>
+            </div>
+        </main>
+    </div>
+
 {% endblock %}

@@ -96,7 +96,8 @@
         ],
         "phpstan" : "vendor/bin/phpstan analyse -c phpstan.neon",
         "cs" : "vendor/bin/phpcs --ignore=*/Migrations/* src",
-        "cbf" : "vendor/bin/phpcbf --ignore=*/Migrations/* src"
+        "cbf" : "vendor/bin/phpcbf --ignore=*/Migrations/* src",
+        "check": "composer cs && composer phpstan"
     },
     "conflict": {
         "symfony/symfony": "*"
