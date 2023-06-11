@@ -32,4 +32,9 @@ final class Version20201225041456 extends AbstractMigration
 
         $this->addSql('DROP TABLE recipe');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

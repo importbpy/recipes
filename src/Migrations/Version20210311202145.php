@@ -43,4 +43,9 @@ final class Version20210311202145 extends AbstractMigration
         $this->addSql('ALTER TABLE tagging ADD CONSTRAINT FK_A4AED12359D8A214 FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
         $this->addSql('ALTER TABLE tagging ADD CONSTRAINT FK_A4AED123BAD26311 FOREIGN KEY (tag_id) REFERENCES tag (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
