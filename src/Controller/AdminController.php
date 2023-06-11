@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\RecipeFormType;
+use App\Form\TagFormType;
 use App\Model\Image\ImageManager;
 use App\Model\Recipe\Recipe;
 use App\Model\Recipe\RecipeRepository;
-use App\Model\Tag\NewTag;
 use App\Model\Tag\Tag;
 use App\Model\Tag\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route as Route;
@@ -179,29 +176,6 @@ final class AdminController extends AbstractController
 
     /**
      * @Route(
-     *     "/admin/edit/recipe/{slug}",
-     *     name="edit_recipe_old",
-     *     requirements={"slug"="[a-z\-]+"}
-     * )
-     */
-    public function editRecipeOld(string $slug): Response
-    {
-        $recipe = $this->recipeRepository->findOneBySlug($slug);
-        if ($recipe === null) {
-            return new Response('Recipe not found', Response::HTTP_NOT_FOUND);
-        }
-
-        $tags = $this->tagRepository->findAll();
-
-        return $this->render('/admin/editRecipe.html.twig', [
-            'recipe' => $recipe,
-            'currentTags' => $recipe->getTags()->toArray(),
-            'availableTags' => $tags,
-        ]);
-    }
-
-    /**
-     * @Route(
      *     "/admin/edit/tags",
      *     name="edit_tags"
      * )
@@ -224,37 +198,20 @@ final class AdminController extends AbstractController
      */
     public function createTag(Request $request): Response
     {
-        $newTag = new NewTag();
-
-        $form = $this->createFormBuilder($newTag)
-            ->add('name', TextType::class)
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Surovina' => 'ingredient',
-                    'Druh' => 'type',
-                    'Příloha' => 'sidedish',
-                 ],
-            ])
-            ->add('submit', SubmitType::class)
-            ->getForm()
-        ;
+        $newTag = new Tag('', '');
+        $form = $this->createForm(TagFormType::class, $newTag);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $tag = new Tag(
-                $newTag->getName(),
-                $newTag->getType(),
-            );
-            $this->entityManager->persist($tag);
-
+            $this->entityManager->persist($newTag);
             $this->entityManager->flush();
 
             return $this->redirectToRoute('edit_tags');
         }
 
         return $this->render(
-            '/admin/addNewRecipe.html.twig',
+            '/admin/addNewTag.html.twig',
             [
                 'form' => $form->createView(),
             ]

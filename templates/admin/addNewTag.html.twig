@@ -3,16 +3,26 @@
 {% block title %}Vytvořit nový tag{% endblock %}
 
 {% block body %}
-    <div class="container-md">
-    <main class="site-main">
-        <div class="container-flex">
-            <article class="content">
-                <section class="post-full-content">
-                    {{ form(form) }}
-                </section>
-            </article>
+    <div class="container-md py-4">
+        <h1>Přidat nový tag</h1>
+        {{ form_start(form, {
+            'attr' : {'class' : 'mt-3'},
+        }) }}
+        <div class="my-3">
+            {{ form_row(form.name, {
+                'label' : 'Název',
+                'attr' : {'class' : 'form-control'},
+                'label_attr' : {'class' : 'form-label'}
+            }) }}
         </div>
-    </main>
+        <div class="my-3">
+            {{ form_row(form.type, {
+                'label' : 'Typ',
+                'attr' : {'class' : 'form-control'},
+                'label_attr' : {'class' : 'form-label'}
+            }) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Přidat tag</button>
+        {{ form_end(form) }}
     </div>
-
 {% endblock %}
