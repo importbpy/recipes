@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <label>Nahraný obrázek</label>
                             <div>
-                                <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }} " class="mw-100">
+                                <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' ~ '?' ~ recipe.cacheBuster }}" alt="{{ recipe.title }} " class="mw-100">
                             </div>
                         </div>
 

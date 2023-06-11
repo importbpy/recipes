@@ -47,6 +47,11 @@ class Recipe
      */
     private ?string $link;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private int $cacheBuster;
+
     public function __construct(
         string $title,
         string $description,
@@ -57,6 +62,7 @@ class Recipe
         $this->slug = (new AsciiSlugger())->slug($title)->lower();
         $this->tags = new ArrayCollection();
         $this->link = $link;
+        $this->cacheBuster = 0;
     }
 
     public function getId(): ?int
@@ -113,5 +119,19 @@ class Recipe
     public function addTag(Tag $tag): void
     {
         $this->tags->add($tag);
+    }
+
+    public function getCacheBuster(): int
+    {
+        return $this->cacheBuster;
+    }
+
+    public function bustCache(): void
+    {
+        if ($this->cacheBuster >= 32767) {
+            $this->cacheBuster = 0;
+            return;
+        }
+        $this->cacheBuster++;
     }
 }

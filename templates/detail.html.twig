@@ -8,7 +8,7 @@
     <div class="container-md">
         <article class="">
             <figure class="">
-                <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }}" class="object-fit-cover w-100 img-title">
+                <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' ~ '?' ~ recipe.cacheBuster }}" alt="{{ recipe.title }}" class="object-fit-cover w-100 img-title">
             </figure>
             {% if is_granted('ROLE_ADMIN') %}
                 <section>

@@ -24,7 +24,7 @@
 			{% for recipe in recipes %}
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="card recipe-card overflow-hidden bg-body-tertiary">
-                        <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }} " class="img-crop object-fit-cover w-100">
+                        <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' ~ '?' ~ recipe.cacheBuster }}" alt="{{ recipe.title }} " class="img-crop object-fit-cover w-100">
                         <a class="fs-6 fw-normal text-decoration-none text-secondary p-3 stretched-link" href="{{ '/recept/' ~ recipe.slug }}">
                             {{ recipe.title }}
                         </a>
