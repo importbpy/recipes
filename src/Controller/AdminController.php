@@ -99,6 +99,7 @@ final class AdminController extends AbstractController
             $image = $form->get('image')->getData();
             if ($image) {
                 $this->imageManager->saveImage($image, $recipe->getSlug());
+                $recipe->bustCache();
             }
 
             $this->entityManager->flush();
