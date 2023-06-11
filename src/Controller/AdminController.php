@@ -109,6 +109,7 @@ final class AdminController extends AbstractController
             '/admin/editRecipe.html.twig',
             [
                 'form' => $form->createView(),
+                'recipe' => $recipe,
             ]
         );
     }

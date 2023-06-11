@@ -11,7 +11,17 @@
                         {{ form_start(form) }}
                             {{ form_row(form.title) }}
                             {{ form_row(form.description) }}
-                            {{ form_row(form.image) }}
+
+                        <div class="form-group">
+                            <label>Nahraný obrázek</label>
+                            <div>
+                                <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' }}" alt="{{ recipe.title }} " class="mw-100">
+                            </div>
+                        </div>
+
+                            {{ form_row(form.image, {
+                                'label' : 'Nahrát jiný obrázek'
+                            })  }}
 
                             <button type="submit" class="btn btn-primary">Uložit změny</button>
                         {{ form_end(form) }}

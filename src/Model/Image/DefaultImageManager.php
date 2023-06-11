@@ -8,12 +8,16 @@ class DefaultImageManager implements ImageManager
 {
     public function saveImage(UploadedFile $image, string $slug): void
     {
-        $image->move(__DIR__ . '/../../../public/images/original', $slug . '.jpg');
-
-        $image = imagecreatefromjpeg(__DIR__ . '/../../../public/images/original/' . $slug . '.jpg');
+        $image->move($this->getBasePath() . 'original/', $slug . '.jpg');
+        $image = imagecreatefromjpeg($this->getBasePath() . 'original/' . $slug . '.jpg');
         $imgResized = imagescale($image, 400);
-        imagejpeg($imgResized, __DIR__ . '/../../../public/images/small/' . $slug . '.jpg');
+        imagejpeg($imgResized, $this->getBasePath() . 'small/' . $slug . '.jpg');
         $imgResized = imagescale($image, 1200);
-        imagejpeg($imgResized, __DIR__ . '/../../../public/images/' . $slug . '.jpg');
+        imagejpeg($imgResized, $this->getBasePath() . $slug . '.jpg');
+    }
+
+    private function getBasePath(): string
+    {
+        return __DIR__ . '/../../../public/images/';
     }
 }
