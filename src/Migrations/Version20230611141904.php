@@ -32,4 +32,9 @@ final class Version20230611141904 extends AbstractMigration
 
         $this->addSql('ALTER TABLE recipe DROP cache_buster');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

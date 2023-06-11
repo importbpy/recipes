@@ -32,4 +32,9 @@ final class Version20210131172458 extends AbstractMigration
 
         $this->addSql('ALTER TABLE recipe ADD image_url LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

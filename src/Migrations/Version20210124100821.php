@@ -37,4 +37,9 @@ final class Version20210124100821 extends AbstractMigration
         $this->addSql('DROP TABLE tagging');
         $this->addSql('DROP TABLE tag');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
