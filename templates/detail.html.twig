@@ -11,6 +11,39 @@
                 <img src="{{ '/images/' ~ recipe.slug ~ '.jpg' ~ '?' ~ recipe.cacheBuster }}" alt="{{ recipe.title }}"
                      class="object-fit-cover w-100 img-title">
             </figure>
+            {% if is_granted('ROLE_ADMIN') %}
+                <section>
+                    <ul class="list-group">
+                        {% if currentTags|length > 0 %}
+                            <li class="list-group-item">
+                                <div>
+                                    Přidané tagy
+                                </div>
+                                <div class="card-body">
+                                    {% for tag in currentTags %}
+                                        <a class="btn btn-secondary my-1 btn-sm"
+                                           href="{{ path('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}"><span
+                                                    class="fw-bolder text-warning">-</span> {{ tag.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% endif %}
+                        {% if availableTags|length > 0 %}
+                            <li class="list-group-item">
+                                <div>
+                                    Ostatní tagy
+                                </div>
+                                {% for tag in availableTags %}
+                                    <a class="btn btn-outline-secondary my-1 btn-sm"
+                                       href="{{ path('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}"><span
+                                                class="fw-bolder text-success">+</span> {{ tag.name }}</a>
+                                {% endfor %}
+                                <a href="{{ path('create_tag') }}" class="btn btn-primary my-1 btn-sm">Vytvořit nový tag</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </section>
+            {% endif %}
             <section class="post-full-content mb-4">
                 <h1 class="display-5 my-5">{{ recipe.title }}</h1>
                 <section class="content-body">{{ recipe.description|markup|raw }}</section>
@@ -18,7 +51,7 @@
         </article>
         {% if is_granted('ROLE_ADMIN') %}
             <section class="mb-4">
-                <a href="{{ url('edit_recipe', {recipeId: recipe.id}) }}"
+                <a href="{{ path('edit_recipe', {recipeId: recipe.id}) }}"
                    class="btn btn-outline-secondary text-decoration-none text-secondary">Editovat recept</a>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-recipe">
                     Smazat recept
@@ -43,37 +76,6 @@
                         </div>
                     </div>
                 </div>
-            </section>
-            <section>
-                <ul class="list-group">
-                    {% if currentTags|length > 0 %}
-                        <li class="list-group-item">
-                            <div>
-                                Přidané tagy
-                            </div>
-                            <div class="card-body">
-                                {% for tag in currentTags %}
-                                    <a class="btn btn-secondary my-1 btn-sm"
-                                       href="{{ url('remove_tag', {recipeId: recipe.id, tagId: tag.id}) }}"><span
-                                                class="fw-bolder text-warning">-</span> {{ tag.name }}</a>
-                                {% endfor %}
-                            </div>
-                        </li>
-                    {% endif %}
-                    {% if availableTags|length > 0 %}
-                        <li class="list-group-item">
-                            <div>
-                                Ostatní tagy
-                            </div>
-                            {% for tag in availableTags %}
-                                <a class="btn btn-outline-secondary my-1 btn-sm"
-                                   href="{{ url('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}"><span
-                                            class="fw-bolder text-success">+</span> {{ tag.name }}</a>
-                            {% endfor %}
-                            <a href="{{ url('create_tag') }}" class="btn btn-primary my-1 btn-sm">Vytvořit nový tag</a>
-                        </li>
-                    {% endif %}
-                </ul>
             </section>
         {% endif %}
     </div>
