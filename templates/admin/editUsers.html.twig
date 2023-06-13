@@ -36,11 +36,11 @@
                                                 <li><a class="dropdown-item" href="{{ path('change_user_role', {userId: user.id, role: 'ROLE_SUPER_ADMIN'}) }}">Super admin</a></li>
                                             </ul>
                                         </div>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-user">
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-user-{{ user.id }}">
                                             Smazat
                                         </button>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="delete-user" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                        <div class="modal fade" id="delete-user-{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                                              aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
