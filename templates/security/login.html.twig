@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Přihlášení{% endblock %}
+{% block title %}{% trans %}Login{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="container-md py-4">
@@ -11,23 +11,23 @@
 
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
                 </div>
             {% endif %}
 
             {% if justRegistered %}
                 <div>
-                    Registrace proběhla úspěšně. Můžete se přihlásit.
+                    {% trans %}Registration successful. You can login.{% endtrans %}
                 </div>
             {% endif %}
 
             <div class="mb-3">
-                <label for="inputEmail" class="form-label">Email</label>
+                <label for="inputEmail" class="form-label">{% trans %}Email{% endtrans %}</label>
                 <input class="form-control" type="email" value="{{ last_username }}" name="email" id="inputEmail"
                        required autofocus>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="inputPassword">Heslo</label>
+                <label class="form-label" for="inputPassword">{% trans %}Password{% endtrans %}</label>
                 <input type="password" name="password" id="inputPassword" class="form-control" required>
 
                 <input type="hidden" name="_csrf_token"
@@ -36,9 +36,9 @@
             </div>
 
             <button class="btn btn-primary mb-3" type="submit">
-                Přihlásit se
+                {% trans %}Login{% endtrans %}
             </button>
-            <div>Jste tu poprvé? <a href="/register">Registrujte se.</a></div>
+            <div>{% trans %}First time here?{% endtrans %} <a href="/register">{% trans %}Register{% endtrans %}.</a></div>
         </form>
     </div>
 

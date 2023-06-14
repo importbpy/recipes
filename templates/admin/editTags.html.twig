@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravit tagy{% endblock %}
+{% block title %}{% trans %}Edit tags{% endtrans %}{% endblock %}
 
 {% block body %}
     <main class="site-main">
         <div class="container-md py-4">
-            <h1>Úprava tagů</h1>
+            <h1>{% trans %}Edit tags{% endtrans %}</h1>
             <section class="py-3">
-                <a class="btn btn-large btn-secondary" href="{{ path('create_tag') }}">Přidat nový tag</a>
+                <a class="btn btn-large btn-secondary" href="{{ path('create_tag') }}">{% trans %}Add new tag{% endtrans %}</a>
             </section>
             <section class="py-3">
-                <h2>Vytvořené tagy</h2>
+                <h2>{% trans %}Created tags{% endtrans %}</h2>
                 <section class="py-3 d-flex flex-wrap gap-2">
                     {% for tag in tags %}
                         <div class="card d-inline p-1 bg-secondary-subtle">
@@ -27,17 +27,16 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Smazat tag
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">{% trans %}Delete tag{% endtrans %}
                                             <i><b>{{ tag.name }}</b></i></h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Smazáním tagu odstraníte tag i ze všech receptů. Opravdu ho chcete smazat? Tato
-                                        akce je nevratná.
+                                        {% trans %}Deleting a tag also removes the tag from all recipes. Are you sure you want to delete it?{% endtrans %} {% trans %}This action can not be undone.{% endtrans %}
                                     </div>
                                     <div class="modal-footer">
-                                        <a class="btn btn-danger" href="{{ path('delete_tag', {tagId: tag.id}) }}">Smazat</a>
+                                        <a class="btn btn-danger" href="{{ path('delete_tag', {tagId: tag.id}) }}">{% trans %}Delete{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>

@@ -17,7 +17,7 @@
                         {% if currentTags|length > 0 %}
                             <li class="list-group-item">
                                 <div>
-                                    Přidané tagy
+                                    {% trans %}Added tags{% endtrans %}
                                 </div>
                                 <div class="card-body">
                                     {% for tag in currentTags %}
@@ -31,14 +31,14 @@
                         {% if availableTags|length > 0 %}
                             <li class="list-group-item">
                                 <div>
-                                    Ostatní tagy
+                                    {% trans %}Available tags{% endtrans %}
                                 </div>
                                 {% for tag in availableTags %}
                                     <a class="btn btn-outline-secondary my-1 btn-sm"
                                        href="{{ path('tag_recipe', {recipeId: recipe.id, tagId: tag.id}) }}"><span
                                                 class="fw-bolder text-success">+</span> {{ tag.name }}</a>
                                 {% endfor %}
-                                <a href="{{ path('create_tag') }}" class="btn btn-primary my-1 btn-sm">Vytvořit nový tag</a>
+                                <a href="{{ path('create_tag') }}" class="btn btn-primary my-1 btn-sm">{% trans %}Create new tag{% endtrans %}</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -47,15 +47,15 @@
             <section class="post-full-content mb-4">
                 <h1 class="display-5 my-5">{{ recipe.title }}</h1>
                 <section class="content-body">{{ recipe.description|markup|raw }}</section>
-                <section>Původní recept: <a href="{{ recipe.link }}">{{ recipe.link }}</a></section>
+                <section>{% trans %}Original recipe{% endtrans %}: <a href="{{ recipe.link }}">{{ recipe.link }}</a></section>
             </section>
         </article>
         {% if is_granted('ROLE_ADMIN') %}
             <section class="mb-4">
                 <a href="{{ path('edit_recipe', {recipeId: recipe.id}) }}"
-                   class="btn btn-outline-secondary text-decoration-none text-secondary">Editovat recept</a>
+                   class="btn btn-outline-secondary text-decoration-none text-secondary">{% trans %}Edit recipe{% endtrans %}</a>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-recipe">
-                    Smazat recept
+                    {% trans %}Delete recipe{% endtrans %}
                 </button>
                 <!-- Modal -->
                 <div class="modal fade" id="delete-recipe" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -63,16 +63,16 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Smazat recept
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{% trans %}Delete recipe{% endtrans %}
                                     <i><b>{{ recipe.title }}</b></i></h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                Opravdu chcete smazat recept? Tato akce je nevratná.
+                                {% trans %}Are you sure you want to delete the recipe? This action can not be undone.{% endtrans %}
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-danger" href="{{ path('delete_recipe', {recipeId: recipe.id}) }}">Smazat</a>
+                                <a class="btn btn-danger" href="{{ path('delete_recipe', {recipeId: recipe.id}) }}">{% trans %}Delete recipe{% endtrans %}</a>
                             </div>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Přidat recept{% endblock %}
+{% block title %}{% trans %}Add new recipe{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="container-md py-4">
-        <h1>Přidat nový recept</h1>
+        <h1>{% trans %}Add new recipe{% endtrans %}</h1>
         {{ form_start(form, {
             'attr' : {'class' : 'mt-3'},
         }) }}
@@ -33,7 +33,7 @@
                 'label_attr' : {'class' : 'form-label'}
             }) }}
         </div>
-        <button type="submit" class="btn btn-primary">Uložit změny</button>
+        <button type="submit" class="btn btn-primary">{% trans %}Save changes{% endtrans %}</button>
         {{ form_end(form) }}
     </div>
 

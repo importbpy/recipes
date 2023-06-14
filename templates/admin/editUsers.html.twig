@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Správa uživatelů{% endblock %}
+{% block title %}{% trans %}User admin{% endtrans %}{% endblock %}
 
 {% block body %}
     <main class="site-main">
         <div class="container-md py-4">
-            <h1>Správa uživatelů</h1>
+            <h1>{% trans %}User admin{% endtrans %}</h1>
             <section class="py-3">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
+                            <th scope="col">{% trans %}Email{% endtrans %}</th>
+                            <th scope="col">{% trans %}Role{% endtrans %}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -28,16 +28,16 @@
                                     <td>
                                         <div class="dropdown d-inline">
                                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Změnit oprávnění
+                                                {% trans %}Change role{% endtrans %}
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{{ path('change_user_role', {userId: user.id, role: 'ROLE_USER'}) }}">Běžný uživatel</a></li>
-                                                <li><a class="dropdown-item" href="{{ path('change_user_role', {userId: user.id, role: 'ROLE_ADMIN'}) }}">Admin</a></li>
-                                                <li><a class="dropdown-item" href="{{ path('change_user_role', {userId: user.id, role: 'ROLE_SUPER_ADMIN'}) }}">Super admin</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('change_user_role', {userId: user.id, role: 'ROLE_USER'}) }}">{% trans %}Standard user{% endtrans %}</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('change_user_role', {userId: user.id, role: 'ROLE_ADMIN'}) }}">{% trans %}Admin{% endtrans %}</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('change_user_role', {userId: user.id, role: 'ROLE_SUPER_ADMIN'}) }}">{% trans %}Super admin{% endtrans %}</a></li>
                                             </ul>
                                         </div>
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-user-{{ user.id }}">
-                                            Smazat
+                                            {% trans %}Delete{% endtrans %}
                                         </button>
                                         <!-- Modal -->
                                         <div class="modal fade" id="delete-user-{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -45,16 +45,16 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Smazat účet
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">{% trans %}Delete account{% endtrans %}
                                                             <i><b>{{ user.email }}</b></i></h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Opravdu chcete smazat účet? Tato akce je nevratná.
+                                                        {% trans %}Are you sure you want to delete the account? This action can not be undone.{% endtrans %}
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a class="btn btn-danger" href="{{ path('delete_user', { userId: user.id }) }}">Smazat</a>
+                                                        <a class="btn btn-danger" href="{{ path('delete_user', { userId: user.id }) }}">{% trans %}Delete{% endtrans %}</a>
                                                     </div>
                                                 </div>
                                             </div>
