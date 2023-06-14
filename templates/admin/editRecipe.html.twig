@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upravit recept{% endblock %}
+{% block title %}{% trans %}Edit recipe{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="container-md py-4">
-        <h1>Upravit recept</h1>
+        <h1>{% trans %}Edit recipe{% endtrans %}</h1>
         {{ form_start(form, {
             'attr' : {'class' : 'mt-3'},
         }) }}
@@ -27,7 +27,7 @@
             }) }}
         </div>
         <div class="form-group mb-3">
-            <label class="form-label">Nahraný obrázek</label>
+            <label class="form-label">{% trans %}Uploaded image{% endtrans %}</label>
             <div>
                 <img src="{{ '/images/small/' ~ recipe.slug ~ '.jpg' ~ '?' ~ recipe.cacheBuster }}"
                      alt="{{ recipe.title }} " class="mw-100">
@@ -35,12 +35,12 @@
         </div>
         <div class="mb-3">
             {{ form_row(form.image, {
-                'label' : 'Nahrát jiný obrázek',
+                'label' : 'Upload another image',
                 'attr' : {'class' : 'form-control'},
                 'label_attr' : {'class' : 'form-label'}
             }) }}
         </div>
-        <button type="submit" class="btn btn-primary">Uložit změny</button>
+        <button type="submit" class="btn btn-primary">{% trans %}Save changes{% endtrans %}</button>
         {{ form_end(form) }}
     </div>
 

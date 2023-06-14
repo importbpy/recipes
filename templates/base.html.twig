@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/app.css">
 
-    <title>{% block title %}Recepty{% endblock %}</title>
+    <title>{% block title %}{% trans %}Recipes{% endtrans %}{% endblock %}</title>
 
 </head>
 <body>
 
 <nav class="navbar bg-body-tertiary navbar-expand-md">
     <div class="container-md">
-        <a class="navbar-brand" href="/">Recepty</a>
+        <a class="navbar-brand" href="/">{% trans %}Recipes{% endtrans %}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,24 +27,24 @@
             <ul class="navbar-nav">
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('edit_users') }}">Uživatelé</a>
+                        <a class="nav-link" href="{{ path('edit_users') }}">{% trans %}Users{% endtrans %}</a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('edit_tags') }}">Upravit tagy</a>
+                        <a class="nav-link" href="{{ path('edit_tags') }}">{% trans %}Edit tags{% endtrans %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_new_recipe') }}">Přidat recept</a>
+                        <a class="nav-link" href="{{ path('create_new_recipe') }}">{% trans %}Add new recipe{% endtrans %}</a>
                     </li>
                 {% endif %}
                 {% if app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}">Odhlásit se</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Přihlásit se</a>
+                        <a class="nav-link" href="{{ path('app_login') }}">{% trans %}Login{% endtrans %}</a>
                     </li>
                 {% endif %}
             </ul>

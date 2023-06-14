@@ -11,19 +11,19 @@
         {{ form_errors(form) }}
         <div class="my-3">
             {{ form_row(form.name, {
-                'label' : 'Název',
+                'label' : 'Name',
                 'attr' : {'class' : 'form-control'},
                 'label_attr' : {'class' : 'form-label'}
             }) }}
         </div>
         <div class="my-3">
             {{ form_row(form.type, {
-                'label' : 'Typ',
+                'label' : 'Type',
                 'attr' : {'class' : 'form-control'},
                 'label_attr' : {'class' : 'form-label'}
             }) }}
         </div>
-        <button type="submit" class="btn btn-primary">Přidat tag</button>
+        <button type="submit" class="btn btn-primary">{% trans %}Add new tag{% endtrans %}</button>
         {{ form_end(form) }}
     </div>
 {% endblock %}

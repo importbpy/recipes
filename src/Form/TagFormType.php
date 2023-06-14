@@ -17,9 +17,9 @@ class TagFormType extends AbstractType
             ->add('name', TextType::class)
             ->add('type', ChoiceType::class, [
                 'choices' => [
-                    'Surovina' => 'ingredient',
-                    'Druh' => 'type',
-                    'Příloha' => 'sidedish',
+                    'Ingredient' => 'ingredient',
+                    'Kind' => 'type',
+                    'Sidedish' => 'sidedish',
                 ],
             ])
         ;

@@ -1,0 +1,42 @@
+Recipes: Recepty
+Users: Uživatelé
+Edit tags: Upravit tagy
+Add new recipe: Přidat recept
+Logout: Odhlásit se
+Login: Přihlásit se
+Added tags: Přidané tagy
+Available tags: Ostatní tagy
+Create new tag: Vytvořit nový tag
+Original recipe: Původní recept
+Edit recipe: Upravit recept
+Delete recipe: Smazat recept
+Are you sure you want to delete the recipe? This action can not be undone.: Opravdu chcete smazat recept? Tato akce je nevratná.
+remove tags: odebrat tagy
+Registration successful. You can login.: Registrace proběhla úspěšně. Můžete se přihlásit.
+Email: Email
+Password: Heslo
+Register: Registrujte se
+First time here?: Jste tu poprvé?
+Registration: Registrace
+User admin: Správa uživatelů
+Role: Role
+Change role: Změnit oprávnění
+Delete: Smazat
+Are you sure you want to delete the account? This action can not be undone.: Opravdu chcete smazat účet? Tato akce je nevratná.
+Delete account: Smazat účet
+Standard user: Běžný uživatel
+Admin: Admin
+Super admin: Super admin
+Add new tag: Přidat nový tag
+Created tags: Vytvořené tagy
+Delete tag: Smazat tag
+This action can not be undone.: Tato akce je nevratná.
+Deleting a tag also removes the tag from all recipes. Are you sure you want to delete it?: Smazáním tagu odstraníte tag i ze všech receptů. Opravdu ho chcete smazat?
+Uploaded image: Nahraný obrázek
+Upload another image: Nahrát jiný obrázek
+Save changes: Uložit změny
+Name: Název
+Type: Typ
+Ingredient: Surovina
+Kind: Druh
+Sidedish: Příloha
