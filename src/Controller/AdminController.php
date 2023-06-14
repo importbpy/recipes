@@ -73,11 +73,6 @@ final class AdminController extends AbstractController
                 $newRecipe->getLink(),
             );
 
-            $image = $form->get('image')->getData();
-            if ($image !== null) {
-                $this->imageManager->saveImage($image, $recipe->getSlug());
-            }
-
             $this->entityManager->persist($recipe);
             try {
                 $this->entityManager->flush();
@@ -89,6 +84,11 @@ final class AdminController extends AbstractController
                         'form' => $form->createView(),
                     ]
                 );
+            }
+
+            $image = $form->get('image')->getData();
+            if ($image !== null) {
+                $this->imageManager->saveImage($image, $recipe->getSlug());
             }
 
             return $this->redirectToRoute('homepage');
