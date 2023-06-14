@@ -13,8 +13,10 @@ use App\Model\Recipe\RecipeTemplate;
 use App\Model\Tag\Tag;
 use App\Model\Tag\TagRepository;
 use App\Model\User\UserRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,13 +72,24 @@ final class AdminController extends AbstractController
                 $newRecipe->getDescription(),
                 $newRecipe->getLink(),
             );
+
             $image = $form->get('image')->getData();
             if ($image !== null) {
                 $this->imageManager->saveImage($image, $recipe->getSlug());
             }
 
             $this->entityManager->persist($recipe);
-            $this->entityManager->flush();
+            try {
+                $this->entityManager->flush();
+            } catch (UniqueConstraintViolationException) {
+                $form->addError(new FormError('The name is already taken. Try another one.'));
+                return $this->render(
+                    '/admin/addNewRecipe.html.twig',
+                    [
+                        'form' => $form->createView(),
+                    ]
+                );
+            }
 
             return $this->redirectToRoute('homepage');
         }
@@ -217,7 +230,17 @@ final class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($newTag);
-            $this->entityManager->flush();
+            try {
+                $this->entityManager->flush();
+            } catch (UniqueConstraintViolationException) {
+                $form->addError(new FormError('The name is already taken. Try another one.'));
+                return $this->render(
+                    '/admin/addNewTag.html.twig',
+                    [
+                        'form' => $form->createView(),
+                    ]
+                );
+            }
 
             return $this->redirectToRoute('edit_tags');
         }
@@ -306,7 +329,7 @@ final class AdminController extends AbstractController
             throw new AccessDeniedHttpException();
         }
 
-        if (! in_array($role, ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'], true)) {
+        if (!in_array($role, ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'], true)) {
             throw new BadRequestException();
         }
 

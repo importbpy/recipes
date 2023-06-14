@@ -27,7 +27,7 @@ class Recipe
     private string $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private string $slug;
 
@@ -48,7 +48,7 @@ class Recipe
     private ?string $link;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint", options={"default" : 0})
      */
     private int $cacheBuster;
 
