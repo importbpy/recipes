@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -23,6 +24,10 @@ class RecipeFormType extends AbstractType
                 'label' => 'Popis',
                 'attr' => ['style' => 'height: 50vh'],
                 'help' => 'Popis lze formátovat pomocí markup language',
+            ])
+            ->add('link', UrlType::class, [
+                'label' => 'Odkaz na původní recept',
+                'required' => false,
             ])
             ->add('image', FileType::class, [
                 'label' => 'Obrázek',
