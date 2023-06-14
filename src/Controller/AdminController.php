@@ -9,6 +9,7 @@ use App\Form\TagFormType;
 use App\Model\Image\ImageManager;
 use App\Model\Recipe\Recipe;
 use App\Model\Recipe\RecipeRepository;
+use App\Model\Recipe\RecipeTemplate;
 use App\Model\Tag\Tag;
 use App\Model\Tag\TagRepository;
 use App\Model\User\UserRepository;
@@ -57,7 +58,7 @@ final class AdminController extends AbstractController
      */
     public function addNewRecipe(Request $request): Response
     {
-        $newRecipe = new Recipe('', '', null); // This Recipe instance is here to retrieve data from the form
+        $newRecipe = new Recipe('', RecipeTemplate::getDescriptionTemplate(), null); // This Recipe instance is here to retrieve data from the form
 
         $form = $this->createForm(RecipeFormType::class, $newRecipe);
 
