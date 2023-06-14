@@ -67,7 +67,7 @@ final class AdminController extends AbstractController
             $recipe = new Recipe(
                 $newRecipe->getTitle(),
                 $newRecipe->getDescription(),
-                null,
+                $newRecipe->getLink(),
             );
             $image = $form->get('image')->getData();
             if ($image !== null) {
