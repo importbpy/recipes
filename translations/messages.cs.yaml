@@ -1,5 +1,5 @@
 Recipes: Recepty
-Users: Uživatelé
+Users: Správa uživatelů
 Edit tags: Upravit tagy
 Add new recipe: Přidat recept
 Logout: Odhlásit se
@@ -40,3 +40,12 @@ Type: Typ
 Ingredient: Surovina
 Kind: Druh
 Sidedish: Příloha
+Change password: Změnit heslo
+Current Password: Současné heslo
+New Password: Nové heslo
+Confirm Password: Potvrdit heslo
+Current password is not correct.: Současné heslo není správně.
+Passwords are not the same.: Zadaná hesla se neshodují.
+Password updated successfully.: Heslo bylo úspěšně změněno.
+Recipe deleted.: Recept byl smazán.
+User: Uživatel
