@@ -38,7 +38,9 @@
             <button class="btn btn-primary mb-3" type="submit">
                 {% trans %}Login{% endtrans %}
             </button>
-            <div>{% trans %}First time here?{% endtrans %} <a href="/register">{% trans %}Register{% endtrans %}.</a></div>
+            {% if enableRegistrations %}
+                <div>{% trans %}First time here?{% endtrans %} <a href="/register">{% trans %}Register{% endtrans %}.</a></div>
+            {% endif %}
         </form>
     </div>
 

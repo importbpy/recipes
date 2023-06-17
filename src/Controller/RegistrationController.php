@@ -9,22 +9,30 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
     private UserRepository $userRepository;
+    private bool $allowRegistration;
 
     public function __construct(
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        bool $allowRegistration,
     ) {
         $this->userRepository = $userRepository;
+        $this->allowRegistration = $allowRegistration;
     }
 
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        if (! $this->allowRegistration) {
+            throw new AccessDeniedHttpException('New registrations are disabled.');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
