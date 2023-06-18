@@ -3,9 +3,9 @@ FROM php:8.2-fpm
 WORKDIR /var/www/recipes
 
 RUN apt update \
-    && apt install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev git \
+    && apt install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev git libzip-dev \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-    && docker-php-ext-install pdo pdo_mysql gd
+    && docker-php-ext-install pdo pdo_mysql gd zip
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
