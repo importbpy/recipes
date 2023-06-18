@@ -37,4 +37,4 @@ services:
     container_name: recipes_adminer
     image: adminer
     ports:
-      - 666:8080
+      - '9090:8080'
