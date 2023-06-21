@@ -47,7 +47,9 @@
             <section class="post-full-content mb-4">
                 <h1 class="display-5 my-5">{{ recipe.title }}</h1>
                 <section class="content-body">{{ recipe.description|markup|raw }}</section>
-                <section>{% trans %}Original recipe{% endtrans %}: <a href="{{ recipe.link }}">{{ recipe.link }}</a></section>
+                {% if recipe.link %}
+                    <section>{% trans %}Original recipe{% endtrans %}: <a href="{{ recipe.link }}">{{ recipe.link }}</a></section>
+                {% endif %}
             </section>
         </article>
         {% if is_granted('ROLE_ADMIN') %}
