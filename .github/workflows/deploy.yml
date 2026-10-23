@@ -16,7 +16,7 @@ jobs:
       - name: Build Composer
         uses: php-actions/composer@v6
         with:
-          php_version: 8.1
+          php_version: 8.5
           php_extensions: gd
       - run: echo "Composer dependencies have been installed"
       - run: composer phpstan
