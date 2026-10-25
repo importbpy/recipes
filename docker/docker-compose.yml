@@ -50,27 +50,49 @@ services:
     depends_on:
       - php-fpm
 
-  backup:
-    container_name: recipes_backup
+  db-backup:
+    container_name: recipes_db_backup
+    image: databack/mysql-backup:1.5.0
     restart: unless-stopped
-    build:
-      context: backup
-      dockerfile: Dockerfile
+    user: "0" # avoid host permission issues on the bind-mounted ./backups/db directory
     depends_on:
       database:
         condition: service_healthy
     environment:
-      MYSQL_HOST: database
-      MYSQL_PORT: 3306
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-recipes}
-      MYSQL_USER: root
-      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
-      CRON_SCHEDULE: ${BACKUP_CRON_SCHEDULE:-0 2 * * *}
+      DB_SERVER: database
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: ${MYSQL_ROOT_PASSWORD:-password}
+      DB_DUMP_INCLUDE: ${MYSQL_DATABASE:-recipes}
+      DB_DUMP_TARGET: /backup
+      DB_DUMP_CRON: ${BACKUP_CRON_SCHEDULE:-0 2 * * *}
+      DB_DUMP_RETENTION: ${BACKUP_RETENTION_DAYS:-7}d
+      COMPRESSION: gzip
+    volumes:
+      - ./backups/db:/backup
+    command: dump
+
+  images-backup:
+    container_name: recipes_images_backup
+    image: alpine:3.20
+    restart: unless-stopped
+    environment:
+      BACKUP_DIR: /backups
+      IMAGES_DIR: /images
       BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-7}
+      CRON_SCHEDULE: ${BACKUP_CRON_SCHEDULE:-0 2 * * *}
       BACKUP_ON_START: ${BACKUP_ON_START:-true}
     volumes:
-      - ./backups:/backups
-      - ../public/images:/images
+      - ../public/images:/images:ro
+      - ./backups/images:/backups
+      - ./backup/images-backup.sh:/images-backup.sh:ro
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        echo "$$CRON_SCHEDULE sh /images-backup.sh >> /var/log/images_backup.log 2>&1" > /etc/crontabs/root
+        [ "$$BACKUP_ON_START" = "true" ] && sh /images-backup.sh
+        crond -f -l 2
 
   adminer:
     container_name: recipes_adminer
