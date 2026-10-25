@@ -1,40 +1,104 @@
-version: '3.8'
-
 services:
   database:
     container_name: recipes_database
     image: mysql:8.0.33
+    restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: recipes
-      MYSQL_USER: recipes
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-recipes}
+      MYSQL_USER: ${MYSQL_USER:-recipes}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
     ports:
-      - '4306:3306'
+      - "${MYSQL_PORT:-127.0.0.1:4306}:3306"
     volumes:
       - ./mysql:/var/lib/mysql
-
-  nginx:
-    container_name: recipes_nginx
-    image: nginx:stable-alpine
-    ports:
-      - '8080:80'
-    volumes:
-      - ..:/var/www/recipes
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    links:
-      - php-fpm
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$${MYSQL_ROOT_PASSWORD} || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   php-fpm:
     container_name: recipes_php
+    restart: unless-stopped
     build:
       context: php
+      dockerfile: Dockerfile
+    environment:
+      APP_ENV: ${APP_ENV:-prod}
+      APP_SECRET: ${APP_SECRET:-efdab0e6fd66a1219859aee8d6103167}
+      DATABASE_URL: mysql://${MYSQL_USER:-recipes}:${MYSQL_PASSWORD:-password}@database:3306/${MYSQL_DATABASE:-recipes}?serverVersion=8.0
+      ENABLE_REGISTRATIONS: ${ENABLE_REGISTRATIONS:-true}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+    depends_on:
+      database:
+        condition: service_healthy
     volumes:
       - ..:/var/www/recipes
 
+  nginx:
+    container_name: recipes_nginx
+    restart: unless-stopped
+    image: nginx:stable-alpine
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      - ..:/var/www/recipes
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php-fpm
+
+  db-backup:
+    container_name: recipes_db_backup
+    image: databack/mysql-backup:1.5.0
+    restart: unless-stopped
+    user: "0" # avoid host permission issues on the bind-mounted ./backups/db directory
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      DB_SERVER: database
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: ${MYSQL_ROOT_PASSWORD:-password}
+      DB_DUMP_INCLUDE: ${MYSQL_DATABASE:-recipes}
+      DB_DUMP_TARGET: /backup
+      DB_DUMP_CRON: ${BACKUP_CRON_SCHEDULE:-0 2 * * *}
+      DB_DUMP_RETENTION: ${BACKUP_RETENTION_DAYS:-7}d
+      COMPRESSION: gzip
+    volumes:
+      - ./backups/db:/backup
+    command: dump
+
+  images-backup:
+    container_name: recipes_images_backup
+    image: alpine:3.20
+    restart: unless-stopped
+    environment:
+      BACKUP_DIR: /backups
+      IMAGES_DIR: /images
+      BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-7}
+      CRON_SCHEDULE: ${BACKUP_CRON_SCHEDULE:-0 2 * * *}
+      BACKUP_ON_START: ${BACKUP_ON_START:-true}
+    volumes:
+      - ../public/images:/images:ro
+      - ./backups/images:/backups
+      - ./backup/images-backup.sh:/images-backup.sh:ro
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        echo "$$CRON_SCHEDULE sh /images-backup.sh >> /var/log/images_backup.log 2>&1" > /etc/crontabs/root
+        [ "$$BACKUP_ON_START" = "true" ] && sh /images-backup.sh
+        crond -f -l 2
+
   adminer:
     container_name: recipes_adminer
+    restart: unless-stopped
     image: adminer
+    profiles:
+      - dev
     ports:
-      - '9090:8080'
+      - "${ADMINER_PORT:-127.0.0.1:9090}:8080"
